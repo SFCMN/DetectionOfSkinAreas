@@ -1,0 +1,2 @@
+# DetectionOfSkinAreas
+彩色图像中肤色区域检测系统的设计与实现
