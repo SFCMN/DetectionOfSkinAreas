@@ -1,6 +1,6 @@
-from detection_of_skin_area import rw  # 文件读写模块
+from DetectionOfSkinAreas.detection_of_skin_area import rw  # 文件读写模块
+from DetectionOfSkinAreas.detection_of_skin_area import gui  # GUI模块
 import wx   # wxPython模块
-import gui  # GUI模块
 
 # 初始化一个文件读写对象
 io = rw.SequenceTXTIO()

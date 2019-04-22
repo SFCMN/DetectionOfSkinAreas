@@ -434,9 +434,9 @@ class ShowImage(wx.Frame):
         self.text = wx.StaticText(self.panel, label="NO TEXT", pos=(0, 0),
                                   size=(self.panel.GetSize()[0], self.panel.GetSize()[1]), name="TEXT",
                                 style=wx.ALIGN_LEFT)
-        self.img_l = wx.StaticBitmap(self.text, wx.ID_ANY, bitmap=wx.Bitmap("../TempInfo/parentheses_left.png"),
+        self.img_l = wx.StaticBitmap(self.text, wx.ID_ANY, bitmap=wx.Bitmap("../images/parentheses_left.png"),
                                      pos=(218.5, 408), size=(71, 142), style=0, name="显示图片")
-        self.img_r = wx.StaticBitmap(self.text, wx.ID_ANY, bitmap=wx.Bitmap("../TempInfo/parentheses_right.png"),
+        self.img_r = wx.StaticBitmap(self.text, wx.ID_ANY, bitmap=wx.Bitmap("../images/parentheses_right.png"),
                                      pos=(465, 408), size=(71, 142), style=0, name="显示图片")
 
         # 设置对话框色彩及子控件

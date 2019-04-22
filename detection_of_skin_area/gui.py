@@ -1,6 +1,6 @@
 import wx
 import wx.lib.buttons as buttons
-from detection_of_skin_area import controls, data, rw, image
+from DetectionOfSkinAreas.detection_of_skin_area import controls, data, rw, image
 import cv2
 import numpy as np
 import threading

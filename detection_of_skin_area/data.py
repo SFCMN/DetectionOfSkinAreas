@@ -1,7 +1,7 @@
 import os
 import cv2
 import numpy as np
-from detection_of_skin_area import rw
+from DetectionOfSkinAreas.detection_of_skin_area import rw
 
 
 class StatisticsData:
