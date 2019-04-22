@@ -1,0 +1,37 @@
+[
+    {   'MainFrameTitle': '彩色图像肤色区域检测系统',
+        'FileMenu': '文件', 'EditMenu': '编辑', 'ViewMenu': '视图', 'SettingsMenu': '设置', 'WindowMenu': '窗口', 'HelpMenu': '帮助',
+        'Open': '打开', 'Save': '保存', 'Save All': '全部保存', 'Save As': '另存为', 'Save All As': '全部另存为', 'Delete': '删除',
+        'Delete All': '全部删除', 'Exit': '退出',
+        'Build Model': '模型建立', 'Skin Detection': '肤色检测', 'Step Preprocess': '分步预处理',
+        'Illumination Compensation': '光照补偿', 'Gray World': '灰度世界色彩均衡算法(默认)', 'Reference White': '基于参考白的色彩均衡算法',
+        'No Illumination Compensation': '不进行光照补偿',
+        'Denoise': '去噪', 'Median Filter': '中值滤波(默认)', 'Mean Filter': '均值滤波', 'Gaussian Filter': '高斯滤波', 'Bilateral Filter': '双边滤波',
+        'No Denoise': '不进行去噪',
+        'Step Skin Detection': '单步肤色检测', 'Binarization': '单步二值化', 'Skin Segmentation': '单步肤色区域分割',
+        'Sample Data Distribution': '样本分布(Cb、Cr)', 'Model Value': '模型数值', 'Skin Likelihood Probability': '肤色似然概率',
+        'Skin Likelihood Image': '肤色似然图', 'Skin Likelihood Binarization Image': '肤色似然二值化图像',
+        'Chinese': '中文', 'English': 'English',
+        'New Window': '新窗口',
+        'About Software': '关于软件', 'About Author': '关于作者', 'Source Code': '源码',
+        'Open Tool': '导入图像', 'Sava Tool': '保存', 'Save As Tool': '另存为', 'Source Code Tool': '源码', 'Build Model Tool': '模型建立',
+        'Sample Data Distribution Tool': '样本分布(Cb、Cr)', 'Model Value Tool': '模型数值', 'Skin Likelihood Probability Tool': '肤色似然概率',
+        'Skin Likelihood Image Tool': '肤色似然图', 'Skin Likelihood Binarization Image Tool': '肤色似然二值化图像',
+        'Settings Tool': '设置', 'Step Delete Tool': '单步清除', 'Clear Tool': '清空图像',
+        'Skin Detection Tool': '肤色检测', 'Step Tool': '单步检测', 'Ellipse Tool': '椭圆模型二值化图像',
+        'Steps Status': '彩色图像肤色区域检测系统', 'Author Status': '作者 : 王博',
+        'Build Model Text': '模型建立', 'IO Text': '输入输出', 'Skin Detection Text': '肤色检测', 'Step Detection Text': '分步检测',
+        'Build Model Btn': '模型建立', 'Open Btn': '导入图像', 'Step Delete Btn': '单步清除', 'Clear Btn': '清空图像',
+        'Skin Detection Btn': '肤色检测', 'Preprocess Btn': '预处理', 'Step Detection Btn': '肤色检测',
+        'Step Binarization Btn': '二值化', 'Step Segmentation Btn': '肤色区域分割', 'IC Text': '光照补偿:', 'DN Text': '去噪:',
+        'IC Method': "['默认(不进行光照补偿)', 'GrayWorld 色彩均衡算法', '基于参考白的算法']",
+        'DN Method': "['默认(不进行去噪)', '中值滤波', '均值滤波', '高斯滤波', '双边滤波']",
+        'Welcome Title': '▷欢迎', 'Original Title': '▷原图', 'Preprocess Title': '▷预处理', 'Binarization Title': '▷二值化',
+        'Segmentation Title': '▷肤色区域分割',
+        'Welcome Window': '欢迎', 'Original Window': '原图像', 'Preprocess Window': '预处理图像', 'Binarization Window': '二值化图像',
+        'Segmentation Window': '肤色区域分割图像', 'Import Image Window': '导入图像'
+    },
+    {
+        'MainFrameTitle': 'Color image skin color area detection system'
+    }
+]
