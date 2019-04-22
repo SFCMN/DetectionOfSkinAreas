@@ -1,6 +1,7 @@
 import wx
 import wx.grid as grid
 import wx.lib.buttons as buttons
+import wx.html as html
 from PIL import Image
 import cv2
 import time
@@ -438,6 +439,14 @@ class ShowImage(wx.Frame):
                                      pos=(218.5, 408), size=(71, 142), style=0, name="显示图片")
         self.img_r = wx.StaticBitmap(self.text, wx.ID_ANY, bitmap=wx.Bitmap("../images/parentheses_right.png"),
                                      pos=(465, 408), size=(71, 142), style=0, name="显示图片")
+        self.icon = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap("../images/icon03_64.ico"),
+                               pos=((self.panel.GetSize()[0] - 664) / 2, 25), size=(64, 64), style=0, name="显示图片")
+        self.title = wx.StaticText(self.panel, label="NO TEXT", pos=(self.icon.GetPosition()[0] + 64, 33), size=(600, 48), name="TEXT",
+                                   style=wx.ALIGN_CENTER)
+        self.divider = wx.Panel(self.panel, pos=(0, 95), size=(self.panel.GetSize()[0], 1), name="分割线")
+        self.soft_info = wx.TextCtrl(self.panel, value="NO TEXT", pos=((self.panel.GetSize()[0] - 500) / 2, 200),
+                                     size=(500, self.panel.GetSize()[1] - 350), name="TEXT",
+                                     style=wx.TE_LEFT | wx.TE_MULTILINE | wx.TE_NO_VSCROLL | wx.BORDER_NONE)
 
         # 设置对话框色彩及子控件
         self.set_attribute_and_child_controls()
@@ -474,6 +483,10 @@ class ShowImage(wx.Frame):
         # 设置文本框
         self.text.SetBackgroundColour('white')
         self.set_text_attribute(self.text)
+        self.title.SetBackgroundColour('white')
+        self.divider.SetBackgroundColour('gray')
+        self.set_text_attribute(self.soft_info)
+        self.soft_info.SetEditable(False)
 
         self.image1.Hide()
         self.image2.Hide()
@@ -481,6 +494,10 @@ class ShowImage(wx.Frame):
         self.grid.Hide()
         self.img_l.Hide()
         self.img_r.Hide()
+        self.icon.Hide()
+        self.title.Hide()
+        self.divider.Hide()
+        self.soft_info.Hide()
 
     def timing(self):
         """
@@ -718,4 +735,27 @@ class ShowImage(wx.Frame):
         :return: None
         """
         self.Destroy()
+
+    def set_about(self, file_path, frame):
+        """
+        设置Web文档界面
+        :param file_path: 文件路径
+        :return: None
+        """
+
+        self.icon.SetBackgroundColour('white')
+        self.title.SetForegroundColour('#1296DB')
+        self.title.SetBackgroundColour('white')
+        font = wx.Font(36, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
+        self.title.SetFont(font)
+        self.title.SetLabelText("彩色图像肤色区域检测系统")
+        text = "作者：\t\t王博\n版本：\t\t0.1.0\n更新日期：\t2019-04-22\n反馈邮箱：\twsfcmn@163.com"
+        self.soft_info.SetValue(text)
+
+        # 关闭等待图，显示web文本
+        frame.close()
+        self.icon.Show()
+        self.title.Show()
+        self.divider.Show()
+        self.soft_info.Show()
 

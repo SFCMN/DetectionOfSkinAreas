@@ -266,6 +266,7 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnGetSkinLikelihood, self.view_skin_likelihood_probability)
         self.Bind(wx.EVT_MENU, self.OnGetSkinLikelihood, self.view_skin_likelihood_image)
         self.Bind(wx.EVT_MENU, self.OnGetSkinLikelihood, self.view_skin_likelihood_binarization_image)
+        self.Bind(wx.EVT_MENU, self.OnAbout, self.help_soft)
 
     def __set_tool_bar(self):
         """
@@ -1056,3 +1057,26 @@ class MainFrame(wx.Frame):
         # self.child_frame.set_show_image(["../TempInfo/Skin Ellipse Detection Image_temp1.jpg",
         #                                  "../TempInfo/Skin Ellipse Detection Image_temp2.jpg"], self.child_frame)
         self.child_frame.set_show_image(["../TempInfo/Skin Ellipse Detection Image_temp1.jpg"], self.child_frame)
+
+    def OnAbout(self, event):
+        """
+        显示关于软件与作者及源码的窗口
+        :param event: 事件源
+        :return: None
+        """
+        # 开始弹窗，显示
+        self.child_frame = controls.ShowImage(title="关于软件", size=(756, 500))  # 初始化对话框
+        self.child_frame.Show()  # 显示对话框
+        self.child_frame.set_icon("../images/icon03_64.ico")
+
+        # 建立线程，开始计算肤色似然度，同时生成肤色似然图与二值化图像
+        web_thread = threading.Thread(target=self.__about)
+        web_thread.start()  # 启动线程
+
+    def __about(self):
+        """
+        开始显示
+        :return: None
+        """
+        # 开始显示Web文本
+        self.child_frame.set_about("../config/aboutsoft.html", self.child_frame)
