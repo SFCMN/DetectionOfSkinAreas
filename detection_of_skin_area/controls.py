@@ -1,7 +1,6 @@
 import wx
 import wx.grid as grid
 import wx.lib.buttons as buttons
-import wx.html as html
 from PIL import Image
 import cv2
 import time
