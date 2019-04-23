@@ -1,12 +1,13 @@
 import wx
 import wx.grid as grid
 import wx.lib.buttons as buttons
-import wx.html as html
 from PIL import Image
 import cv2
 import time
 import threading
 import numpy as np
+import webbrowser   # 默认浏览器打开网页
+import pyperclip
 
 
 class ImageView(wx.Panel):
@@ -447,6 +448,11 @@ class ShowImage(wx.Frame):
         self.soft_info = wx.TextCtrl(self.panel, value="NO TEXT", pos=((self.panel.GetSize()[0] - 500) / 2, 200),
                                      size=(500, self.panel.GetSize()[1] - 350), name="TEXT",
                                      style=wx.TE_LEFT | wx.TE_MULTILINE | wx.TE_NO_VSCROLL | wx.BORDER_NONE)
+        self.author_info = wx.TextCtrl(self.panel, value="NO TEXT", pos=(0, 0),
+                                     size=(self.panel.GetSize()[0], self.panel.GetSize()[1]), name="TEXT",
+                                     style=wx.TE_LEFT | wx.TE_MULTILINE | wx.TE_NO_VSCROLL | wx.BORDER_NONE | wx.TE_RICH2)
+        self.author = wx.StaticBitmap(self.author_info, wx.ID_ANY, bitmap=wx.Bitmap("../images/AuthorPersonalPhoto.jpg"),
+                                    pos=(35, 20), size=(170, 250), style=0, name="作者")
 
         # 设置对话框色彩及子控件
         self.set_attribute_and_child_controls()
@@ -487,6 +493,9 @@ class ShowImage(wx.Frame):
         self.divider.SetBackgroundColour('gray')
         self.set_text_attribute(self.soft_info)
         self.soft_info.SetEditable(False)
+        self.set_text_attribute(self.author_info)
+        self.author_info.SetEditable(False)
+        self.author_info.Bind(wx.EVT_LEFT_DOWN, self.OnLink)
 
         self.image1.Hide()
         self.image2.Hide()
@@ -498,6 +507,8 @@ class ShowImage(wx.Frame):
         self.title.Hide()
         self.divider.Hide()
         self.soft_info.Hide()
+        self.author_info.Hide()
+        self.author.Hide()
 
     def timing(self):
         """
@@ -736,26 +747,60 @@ class ShowImage(wx.Frame):
         """
         self.Destroy()
 
-    def set_about(self, file_path, frame):
+    def set_about(self, type, frame):
         """
         设置Web文档界面
-        :param file_path: 文件路径
+        :param type: 控件类型
         :return: None
         """
+        if type == 1:   # 关于软件
+            self.icon.SetBackgroundColour('white')
+            self.title.SetForegroundColour('#1296DB')
+            self.title.SetBackgroundColour('white')
+            font = wx.Font(36, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
+            self.title.SetFont(font)
+            self.title.SetLabelText("彩色图像肤色区域检测系统")
+            text = "作者：\t\t王博\n版本：\t\t0.1.0\n更新日期：\t2019-04-22\n反馈邮箱：\twsfcmn@163.com"
+            self.soft_info.SetValue(text)
 
-        self.icon.SetBackgroundColour('white')
-        self.title.SetForegroundColour('#1296DB')
-        self.title.SetBackgroundColour('white')
-        font = wx.Font(36, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
-        self.title.SetFont(font)
-        self.title.SetLabelText("彩色图像肤色区域检测系统")
-        text = "作者：\t\t王博\n版本：\t\t0.1.0\n更新日期：\t2019-04-22\n反馈邮箱：\twsfcmn@163.com"
-        self.soft_info.SetValue(text)
+            # 关闭等待图，显示软件信息
+            frame.close()
+            self.icon.Show()
+            self.title.Show()
+            self.divider.Show()
+            self.soft_info.Show()
+        elif type == 2:     # 关于作者
+            # 显示作者信息
+            text = "\n\t\t\t\t\t\t姓名：\t王博\n\n\t\t\t\t\t\t学校：\t"
+            self.author_info.SetValue(text)
+            self.author_info.SetDefaultStyle(wx.TextAttr("#1296DB"))
+            self.author_info.AppendText("西安理工大学")
+            text = "\n\n\t\t\t\t\t\t邮箱：\twsfcmn@163.com\n\n    GitHub：\t\t"
+            self.author_info.SetDefaultStyle(wx.TextAttr(wx.BLACK))
+            self.author_info.AppendText(text)
+            self.author_info.SetDefaultStyle(wx.TextAttr("#1296DB"))
+            self.author_info.AppendText("https://github.com/SFCMN")
 
-        # 关闭等待图，显示web文本
-        frame.close()
-        self.icon.Show()
-        self.title.Show()
-        self.divider.Show()
-        self.soft_info.Show()
+            # 关闭等待图，显示作者信息
+            frame.close()
+            self.author_info.Show()
+            self.author.Show()
+        else:       # 源码
+            # 关闭等待图，显示源码
+            frame.close()
 
+    def OnLink(self, event):
+        """
+        鼠标点击打开网站
+        :param event: 事件源
+        :return: None
+        """
+        (x, y) = event.GetPosition()    # 获取当前鼠标位置
+        # print((x, y))
+        if x >= 430 and x <= 650 and y >= 230 and y<= 250:
+            pyperclip.copy("wsfcmn@163.com")
+            Tip(size=(250, 100), label="邮箱已复制到剪切板！")
+        if x >= 440 and x <= 620 and y >= 140 and y<= 160:
+            webbrowser.open("http://www.xaut.edu.cn/")
+        if x >= 290 and x <= 670 and y >= 310 and y<= 330:
+            webbrowser.open("https://github.com/SFCMN")

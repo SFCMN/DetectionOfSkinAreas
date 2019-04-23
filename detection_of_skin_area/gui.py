@@ -26,6 +26,7 @@ class MainFrame(wx.Frame):
         self.model_value = None     # 模型计算所得值
         self.thread1 = None     # 子线程
         self.thread2 = None
+        self.help_control_type = -1     # 关于控件类型
         self.language_style = personal_settings['language_style']   # 语言风格
         self.label_dict = None    # GUI控件label集合
         if self.language_style == 'cn':
@@ -166,9 +167,9 @@ class MainFrame(wx.Frame):
         # 初始化窗口菜单项
         self.window_new = wx.MenuItem(self.window_menu, wx.ID_ANY, self.label_dict['New Window'])
         # 初始化帮助菜单项
-        self.help_soft = wx.MenuItem(self.help_menu, wx.ID_ANY, self.label_dict['About Software'])
-        self.help_author = wx.MenuItem(self.help_menu, wx.ID_ANY, self.label_dict['About Author'])
-        self.help_source_code = wx.MenuItem(self.help_menu, wx.ID_ANY, self.label_dict['Source Code'])
+        self.help_soft = wx.MenuItem(self.help_menu, 501, self.label_dict['About Software'])
+        self.help_author = wx.MenuItem(self.help_menu, 502, self.label_dict['About Author'])
+        self.help_source_code = wx.MenuItem(self.help_menu, 503, self.label_dict['Source Code'])
 
         # 设置菜单项背景色为白色
         self.file_open.SetBackgroundColour('white')
@@ -267,6 +268,8 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_MENU, self.OnGetSkinLikelihood, self.view_skin_likelihood_image)
         self.Bind(wx.EVT_MENU, self.OnGetSkinLikelihood, self.view_skin_likelihood_binarization_image)
         self.Bind(wx.EVT_MENU, self.OnAbout, self.help_soft)
+        self.Bind(wx.EVT_MENU, self.OnAbout, self.help_author)
+        self.Bind(wx.EVT_MENU, self.OnAbout, self.help_source_code)
 
     def __set_tool_bar(self):
         """
@@ -280,7 +283,7 @@ class MainFrame(wx.Frame):
         self.tool1 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/open01.png'), self.label_dict['Open Tool'])
         self.tool2 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/save01.png'), self.label_dict['Sava Tool'])
         self.tool3 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/saveas01.png'), self.label_dict['Save As Tool'])
-        self.tool4 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/code01.png'), self.label_dict['Source Code Tool'])
+        self.tool4 = self.tool_bar.AddTool(504, "", wx.Bitmap('../images/code01.png'), self.label_dict['Source Code Tool'])
         self.tool5 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/settings01.png'), self.label_dict['Settings Tool'])
         self.tool6 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/model01.png'), self.label_dict['Build Model Tool'])
         self.tool7 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/distribution01.png'), self.label_dict['Sample Data Distribution Tool'])
@@ -299,6 +302,7 @@ class MainFrame(wx.Frame):
 
         # 事件绑定
         self.Bind(wx.EVT_TOOL, self.OnOpen, self.tool1)
+        self.Bind(wx.EVT_TOOL, self.OnAbout, self.tool4)
         self.Bind(wx.EVT_TOOL, self.OnCreateModel, self.tool6)
         self.Bind(wx.EVT_TOOL, self.OnDrawPlot, self.tool7)
         self.Bind(wx.EVT_TOOL, self.OnModelValue, self.tool8)
@@ -1064,10 +1068,28 @@ class MainFrame(wx.Frame):
         :param event: 事件源
         :return: None
         """
+        id = event.GetId()
+        # print(id)
+        if id == 501:   # 关于软件
+            title = "关于软件"
+            ico_path = "../images/soft02.ico"
+            self.help_control_type = 1
+            size = (756, 500)
+        elif id ==502:  # 关于作者
+            title = "关于作者"
+            ico_path = "../images/author02.ico"
+            self.help_control_type = 2
+            size = (756, 450)
+        else:           # 源码
+            title = "源码"
+            ico_path = "../images/code02.ico"
+            self.help_control_type = 3
+            size = (756, 500)
+
         # 开始弹窗，显示
-        self.child_frame = controls.ShowImage(title="关于软件", size=(756, 500))  # 初始化对话框
+        self.child_frame = controls.ShowImage(title=title, size=size)  # 初始化对话框
         self.child_frame.Show()  # 显示对话框
-        self.child_frame.set_icon("../images/icon03_64.ico")
+        self.child_frame.set_icon(ico_path)
 
         # 建立线程，开始计算肤色似然度，同时生成肤色似然图与二值化图像
         web_thread = threading.Thread(target=self.__about)
@@ -1079,4 +1101,7 @@ class MainFrame(wx.Frame):
         :return: None
         """
         # 开始显示Web文本
-        self.child_frame.set_about("../config/aboutsoft.html", self.child_frame)
+        self.child_frame.set_about(self.help_control_type, self.child_frame)
+
+        # 清空关于控件类型
+        self.help_control_type = -1
