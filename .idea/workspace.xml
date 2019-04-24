@@ -10,7 +10,11 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$controls.coverage" NAME="controls Coverage Results" MODIFIED="1555942092770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
+<<<<<<< HEAD
     <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$main.coverage" NAME="main Coverage Results" MODIFIED="1556087811994" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
+=======
+    <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$main.coverage" NAME="main Coverage Results" MODIFIED="1556096988298" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
+>>>>>>> develop
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
