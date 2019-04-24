@@ -292,6 +292,9 @@ class MainFrame(wx.Frame):
         self.tool10 = self.tool_bar.AddTool(302, "", wx.Bitmap('../images/likelihoodimage01.png'), self.label_dict['Skin Likelihood Image Tool'])
         self.tool11 = self.tool_bar.AddTool(303, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Skin Likelihood Binarization Image Tool'])
         self.tool16 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Ellipse Tool'])
+        # self.tool18 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Cr_Otsu Tool'])
+        self.tool19 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['RGB Tool'])
+        self.tool17 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['HSV Tool'])
         self.tool12 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/back01.png'), self.label_dict['Step Delete Tool'])
         self.tool13 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/clear01.png'), self.label_dict['Clear Tool'])
         self.tool14 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/detection02.png'), self.label_dict['Skin Detection Tool'])
@@ -313,6 +316,9 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_TOOL, self.OnDeleteAll, self.tool13)
         self.Bind(wx.EVT_TOOL, self.OnDetection, self.tool14)
         self.Bind(wx.EVT_TOOL, self.OnEllipse, self.tool16)
+        self.Bind(wx.EVT_TOOL, self.OnHSV, self.tool17)
+        # self.Bind(wx.EVT_TOOL, self.OnCr_Otsu, self.tool18)
+        self.Bind(wx.EVT_TOOL, self.OnRGB, self.tool19)
 
     def __set_status_bar(self):
         """
@@ -1105,3 +1111,69 @@ class MainFrame(wx.Frame):
 
         # 清空关于控件类型
         self.help_control_type = -1
+
+    def OnHSV(self, event):
+        """
+        HSV范围筛选法
+        :param event: 事件源
+        :return: None
+        """
+        # 开始弹窗，检测
+        self.child_frame = controls.ShowImage(title="HSV范围筛选法二值化图像", size=(1200, 700))  # 初始化对话框
+        self.child_frame.Show()  # 显示对话框
+        self.child_frame.set_icon("../images/likelihoodimage01.ico")
+
+        # 建立线程，开始计算肤色似然度，同时生成肤色似然图与二值化图像
+        hsv_thread = threading.Thread(target=self.__hsv)
+        hsv_thread.start()  # 启动线程
+
+    def __hsv(self):
+        process = image.ImageProcess()
+        process.hsv_detection(self.image)
+
+        self.child_frame.set_show_image(["../TempInfo/Skin HSV Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin HSV Detection Image_temp2.jpg"], self.child_frame)
+
+    def OnCr_Otsu(self, event):
+        """
+        YCrCb颜色空间的Cr分量+Otsu阈值分割
+        :param event: 事件源
+        :return: None
+        """
+        # 开始弹窗，检测
+        self.child_frame = controls.ShowImage(title="YCrCb颜色空间的Cr分量+Otsu阈值分割", size=(1200, 700))  # 初始化对话框
+        self.child_frame.Show()  # 显示对话框
+        self.child_frame.set_icon("../images/likelihoodimage01.ico")
+
+        # 建立线程，开始计算肤色似然度，同时生成肤色似然图与二值化图像
+        cr_otsu_thread = threading.Thread(target=self.__cr_otsu)
+        cr_otsu_thread.start()  # 启动线程
+
+    def __cr_otsu(self):
+        process = image.ImageProcess()
+        process.cr_otsu_detection(self.image)
+
+        self.child_frame.set_show_image(["../TempInfo/Skin Cr_Otsu Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin Cr_Otsu Detection Image_temp2.jpg"], self.child_frame)
+
+    def OnRGB(self, event):
+        """
+        RGB颜色空间的肤色检测
+        :param event: 事件源
+        :return: None
+        """
+        # 开始弹窗，检测
+        self.child_frame = controls.ShowImage(title="RGB色彩空间二值化图像", size=(1200, 700))  # 初始化对话框
+        self.child_frame.Show()  # 显示对话框
+        self.child_frame.set_icon("../images/likelihoodimage01.ico")
+
+        # 建立线程，开始计算肤色似然度，同时生成肤色似然图与二值化图像
+        rgb_thread = threading.Thread(target=self.__rgb)
+        rgb_thread.start()  # 启动线程
+
+    def __rgb(self):
+        process = image.ImageProcess()
+        process.rgb_detection(self.image)
+
+        self.child_frame.set_show_image(["../TempInfo/Skin RGB Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin RGB Detection Image_temp2.jpg"], self.child_frame)
