@@ -341,3 +341,122 @@ class ImageProcess:
                 else:
                     skin[i, j] = 0
         return skin
+
+    def hsv_range_sceening(self, image):
+        """
+        HSV色彩空间，H、S、V范围筛选，得出肤色区域的二值化图像
+        :param image: 图像
+        :return: 二值化图像
+        """
+        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        (h, s, v) = cv2.split(hsv)
+        skin = np.zeros(h.shape, dtype=np.uint8)
+        (x, y) = h.shape
+
+        for i in range(0, x):
+            for j in range(0, y):
+                if (h[i][j] > 7) and (h[i][j] < 20) and (s[i][j] > 28) and (s[i][j] < 255) and (v[i][j] > 50) and (
+                        v[i][j] < 255):
+                    skin[i][j] = 255
+                else:
+                    skin[i][j] = 0
+        dst = skin
+        return dst
+
+    def hsv_detection(self, image):
+        """
+        HSV范围筛选肤色检测
+        :param image: 图像
+        :return: None
+        """
+        img01 = self.illumination_compensation_gray_world(image)
+
+        img02 = self.denoise_median_blur(img01)
+
+        img03 = self.hsv_range_sceening(img02)
+
+        img04 = self.skin_segmentation(img02, img03)
+
+        # 保存图片
+        img03_temp = Image.fromarray(cv2.cvtColor(img03, cv2.COLOR_GRAY2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
+        img03_temp.save("../TempInfo/Skin HSV Detection Image_temp1.jpg")
+        img04_temp = Image.fromarray(cv2.cvtColor(img04, cv2.COLOR_BGR2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式cv2.cvtColor(img04, cv2.COLOR_RBG2RGB)
+        img04_temp.save("../TempInfo/Skin HSV Detection Image_temp2.jpg")
+
+    def cr_otsu_detection(self, image):
+        """
+        YCrCb颜色空间的Cr分量+Otsu阈值分割
+        :param image: 图像
+        :return: None
+        """
+        img01 = self.illumination_compensation_gray_world(image)
+
+        img02 = self.denoise_median_blur(img01)
+
+        img03 = self.cr_otsu(img02)
+
+        img04 = self.skin_segmentation(img02, img03)
+
+        # 保存图片
+        img03_temp = Image.fromarray(cv2.cvtColor(img03, cv2.COLOR_GRAY2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
+        img03_temp.save("../TempInfo/Skin Cr_Otsu Detection Image_temp1.jpg")
+        img04_temp = Image.fromarray(cv2.cvtColor(img04, cv2.COLOR_BGR2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式cv2.cvtColor(img04, cv2.COLOR_RBG2RGB)
+        img04_temp.save("../TempInfo/Skin Cr_Otsu Detection Image_temp2.jpg")
+
+    def cr_otsu(self, image):
+        """
+        YCrCb颜色空间的Cr分量+Otsu阈值分割
+        :param image: 图像
+        :return: 检测出的二值化图像
+        """
+        ycrcb = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
+
+        (y, cr, cb) = cv2.split(ycrcb)
+        cr1 = cv2.GaussianBlur(cr, (5, 5), 0)
+        _, skin = cv2.threshold(cr1, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
+        dst = skin
+        return dst
+
+    def rgb(self, image):
+        """
+        RGB色彩空间肤色检测
+        :param image: 图像
+        :return: 二值化图像
+        """
+        (b, g, r) = cv2.split(image)
+        skin = np.zeros(b.shape, dtype=np.uint8)
+        (x, y) = b.shape
+        for i in range(0, x):
+            for j in range(0, y):
+                R = int(r[i][j])
+                G = int(g[i][j])
+                B = int(b[i][j])
+                if (abs(R - G) > 15) and (R > G) and (R > B):
+                    if (R > 95) and (G > 40) and (B > 20) and (max(R, G, B) - min(R, G, B) > 15):
+                        skin[i][j] = 255
+                    elif (R > 220) and (G > 210) and (B > 170):
+                        skin[i][j] = 255
+                else:
+                    skin[i][j] = 0
+        dst = skin
+        return dst
+
+    def rgb_detection(self, image):
+        """
+        RGB颜色空间的肤色检测
+        :param image: 图像
+        :return: None
+        """
+        img01 = self.illumination_compensation_gray_world(image)
+
+        img02 = self.denoise_median_blur(img01)
+
+        img03 = self.rgb(img02)
+
+        img04 = self.skin_segmentation(img02, img03)
+
+        # 保存图片
+        img03_temp = Image.fromarray(cv2.cvtColor(img03, cv2.COLOR_GRAY2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
+        img03_temp.save("../TempInfo/Skin RGB Detection Image_temp1.jpg")
+        img04_temp = Image.fromarray(cv2.cvtColor(img04, cv2.COLOR_BGR2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式cv2.cvtColor(img04, cv2.COLOR_RBG2RGB)
+        img04_temp.save("../TempInfo/Skin RGB Detection Image_temp2.jpg")
