@@ -7,7 +7,7 @@ import time
 import threading
 import numpy as np
 import webbrowser   # 默认浏览器打开网页
-import pyperclip
+import pyperclip    # 剪切板模块
 
 
 class ImageView(wx.Panel):
@@ -453,6 +453,12 @@ class ShowImage(wx.Frame):
                                      style=wx.TE_LEFT | wx.TE_MULTILINE | wx.TE_NO_VSCROLL | wx.BORDER_NONE | wx.TE_RICH2)
         self.author = wx.StaticBitmap(self.author_info, wx.ID_ANY, bitmap=wx.Bitmap("../images/AuthorPersonalPhoto.jpg"),
                                     pos=(35, 20), size=(170, 250), style=0, name="作者")
+        self.package = wx.StaticBitmap(self, wx.ID_ANY, bitmap=wx.Bitmap("../images/package02.png"),
+                                    pos=(25, 40), size=(128, 128), style=0, name="显示图片")
+        self.btn1 = buttons.GenButton(self, id=201, label="在线查看", pos=(165, 50), size=(self.GetSize()[0] - 200, 40),
+                                      style=wx.BORDER_SIMPLE)
+        self.btn2 = buttons.GenButton(self, id=202, label="下载到本地", pos=(165, 118), size=(self.GetSize()[0] - 200, 40),
+                                      style=wx.BORDER_SIMPLE)
 
         # 设置对话框色彩及子控件
         self.set_attribute_and_child_controls()
@@ -496,6 +502,10 @@ class ShowImage(wx.Frame):
         self.set_text_attribute(self.author_info)
         self.author_info.SetEditable(False)
         self.author_info.Bind(wx.EVT_LEFT_DOWN, self.OnLink)
+        self.__set_button_properties(self.btn1)
+        self.__set_button_properties(self.btn2)
+        self.Bind(wx.EVT_BUTTON, self.OnButton, self.btn1)
+        self.Bind(wx.EVT_BUTTON, self.OnButton, self.btn2)
 
         self.image1.Hide()
         self.image2.Hide()
@@ -509,6 +519,9 @@ class ShowImage(wx.Frame):
         self.soft_info.Hide()
         self.author_info.Hide()
         self.author.Hide()
+        self.package.Hide()
+        self.btn1.Hide()
+        self.btn2.Hide()
 
     def timing(self):
         """
@@ -788,6 +801,10 @@ class ShowImage(wx.Frame):
         else:       # 源码
             # 关闭等待图，显示源码
             frame.close()
+            self.panel.Hide()
+            self.package.Show()
+            self.btn1.Show()
+            self.btn2.Show()
 
     def OnLink(self, event):
         """
@@ -804,3 +821,29 @@ class ShowImage(wx.Frame):
             webbrowser.open("http://www.xaut.edu.cn/")
         if x >= 290 and x <= 670 and y >= 310 and y<= 330:
             webbrowser.open("https://github.com/SFCMN")
+
+    def __set_button_properties(self, btn):
+        """
+        设置给定按钮的属性
+        :param btn: 给定的按钮
+        :return: None
+        """
+        btn.SetBackgroundColour('white')
+        btn.SetTransparent(200)
+        btn.SetBezelWidth(0)
+        btn.SetUseFocusIndicator(False)
+        font = wx.Font(16, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
+        btn.SetFont(font)
+
+    def OnButton(self, event):
+        """
+        点击按钮跳转到源码网页或下载到本地
+        :param event: 事件源
+        :return: None
+        """
+        id = event.GetId()
+        if id == 201:       # 在线查看
+            webbrowser.open("https://github.com/SFCMN/DetectionOfSkinAreas")
+        else:               # 下载到本地
+            # 使用浏览器下载源码
+            webbrowser.open("https://github.com/SFCMN/DetectionOfSkinAreas/archive/master.zip")

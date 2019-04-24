@@ -1084,7 +1084,7 @@ class MainFrame(wx.Frame):
             title = "源码"
             ico_path = "../images/code02.ico"
             self.help_control_type = 3
-            size = (756, 500)
+            size = (356, 250)
 
         # 开始弹窗，显示
         self.child_frame = controls.ShowImage(title=title, size=size)  # 初始化对话框
