@@ -136,7 +136,7 @@ class MainFrame(wx.Frame):
         self.menu_bar.Append(self.edit_menu, self.label_dict['EditMenu'])
         self.menu_bar.Append(self.view_menu, self.label_dict['ViewMenu'])
         self.menu_bar.Append(self.settings_menu, self.label_dict['SettingsMenu'])
-        self.menu_bar.Append(self.window_menu, self.label_dict['WindowMenu'])
+        # self.menu_bar.Append(self.window_menu, self.label_dict['WindowMenu'])
         self.menu_bar.Append(self.help_menu, self.label_dict['HelpMenu'])
 
         # 初始化文件菜单项
