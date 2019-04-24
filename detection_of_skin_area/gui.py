@@ -6,6 +6,7 @@ import numpy as np
 import threading
 import os
 from PIL import Image
+import sys
 
 
 class MainFrame(wx.Frame):
@@ -261,6 +262,7 @@ class MainFrame(wx.Frame):
         # self.Bind(wx.EVT_MENU, self.OnSaveAllAs, self.file_save_all_as)
         self.Bind(wx.EVT_MENU, self.OnStepDelete, self.file_delete)
         self.Bind(wx.EVT_MENU, self.OnDeleteAll, self.file_delete_all)
+        self.Bind(wx.EVT_MENU, self.OnExit, self.file_exit)
         self.Bind(wx.EVT_MENU, self.OnDetection, self.edit_skin_detection)
         self.Bind(wx.EVT_MENU, self.OnCreateModel, self.edit_build_model)
         self.Bind(wx.EVT_MENU, self.OnDrawPlot, self.view_sample_data_distribution)
@@ -1235,3 +1237,11 @@ class MainFrame(wx.Frame):
                                          "../TempInfo/Skin Ellipse Detection Image_temp1.jpg",
                                          "../TempInfo/Skin RGB Detection Image_temp1.jpg",
                                          "../TempInfo/Skin HSV Detection Image_temp1.jpg"], self.child_frame)
+
+    def OnExit(self, event):
+        """
+        退出整个程序
+        :param event: 事件源
+        :return: None
+        """
+        self.Destroy()
