@@ -293,6 +293,7 @@ class MainFrame(wx.Frame):
         self.tool10 = self.tool_bar.AddTool(302, "", wx.Bitmap('../images/likelihoodimage01.png'), self.label_dict['Skin Likelihood Image Tool'])
         self.tool11 = self.tool_bar.AddTool(303, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Skin Likelihood Binarization Image Tool'])
         self.tool16 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Ellipse Tool'])
+        self.tool21 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/ellipse01.png'), self.label_dict['Ellipse Model Tool'])
         # self.tool18 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Cr_Otsu Tool'])
         self.tool19 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['RGB Tool'])
         self.tool17 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['HSV Tool'])
@@ -322,6 +323,7 @@ class MainFrame(wx.Frame):
         # self.Bind(wx.EVT_TOOL, self.OnCr_Otsu, self.tool18)
         self.Bind(wx.EVT_TOOL, self.OnRGB, self.tool19)
         self.Bind(wx.EVT_TOOL, self.OnCompare, self.tool20)
+        self.Bind(wx.EVT_TOOL, self.OnEllipseModel, self.tool21)
 
     def __set_status_bar(self):
         """
@@ -1203,6 +1205,31 @@ class MainFrame(wx.Frame):
         # 将Cb、Cr范围筛选二值化图像保存
         img_temp = Image.fromarray(cv2.cvtColor(self.image_list[2], cv2.COLOR_GRAY2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
         img_temp.save("../TempInfo/Skin CbCr Detection Image_temp1.jpg")
+
+        self.child_frame.set_show_image(["../TempInfo/Skin CbCr Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin Ellipse Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin RGB Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin HSV Detection Image_temp1.jpg"], self.child_frame)
+
+    def OnEllipseModel(self, event):
+        """
+        多图像比较
+        :param event: 事件源
+        :return: None
+        """
+        # 开始弹窗
+        self.child_frame = controls.ShowImage(title="椭圆模型说明", size=(800, 400))  # 初始化对话框
+        self.child_frame.Show()  # 显示对话框
+        self.child_frame.set_icon("../images/ellipse02.ico")
+
+        self.child_frame.set_show_image(["../TempInfo/ellipse01.jpg",
+                                         "../TempInfo/ellipse_temp.jpg"], self.child_frame)
+
+        # 建立线程
+        # model_thread = threading.Thread(target=self.__ellipse_model)
+        # model_thread.start()  # 启动线程
+
+    def __ellipse_model(self):
 
         self.child_frame.set_show_image(["../TempInfo/Skin CbCr Detection Image_temp1.jpg",
                                          "../TempInfo/Skin Ellipse Detection Image_temp1.jpg",

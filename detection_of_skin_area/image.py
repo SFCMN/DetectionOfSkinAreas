@@ -326,7 +326,12 @@ class ImageProcess:
         """
         skinCrCbHist = np.zeros((256, 256), dtype=np.uint8)  # 将返回给定形状和类型的新数组，用零填充。
         # 画椭圆——需要输入中心点位置，长轴和短轴的长度，椭圆沿逆时针选择角度，椭圆沿顺时针方向起始角度和结束角度
-        cv2.ellipse(skinCrCbHist, (113, 155), (23, 15), 43, 0, 360, (255, 255, 255), -1)
+        img = cv2.ellipse(skinCrCbHist, (113, 155), (23, 15), 43, 0, 360, (255, 255, 255), -1)
+
+        # 保存椭圆模型图
+        img = Image.fromarray(cv2.cvtColor(img, cv2.COLOR_GRAY2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
+        img.save("../TempInfo/ellipse_temp.jpg")
+
         # cv2.cvtColor(img,cv2.COLOR_BGR2YCR_CB) 色彩空间转换
         YCrCb = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
         (y, cr, cb) = cv2.split(YCrCb)  # 图像三通道分离
