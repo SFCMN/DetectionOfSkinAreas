@@ -432,6 +432,10 @@ class ShowImage(wx.Frame):
                                     pos=(0, 0), size=(100, 100), style=0, name="显示图片")
         self.image2 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap(self.imagePathList[0]),
                                      pos=(100, 0), size=(100, 100), style=0, name="显示图片")
+        self.image3 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap(self.imagePathList[0]),
+                                      pos=(0, 100), size=(100, 100), style=0, name="显示图片")
+        self.image4 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap(self.imagePathList[0]),
+                                      pos=(100, 100), size=(100, 100), style=0, name="显示图片")
         self.grid = grid.Grid(self.panel, wx.ID_ANY, size=(self.panel.GetSize()[0], self.panel.GetSize()[1]))
         self.text = wx.StaticText(self.panel, label="NO TEXT", pos=(0, 0),
                                   size=(self.panel.GetSize()[0], self.panel.GetSize()[1]), name="TEXT",
@@ -509,6 +513,8 @@ class ShowImage(wx.Frame):
 
         self.image1.Hide()
         self.image2.Hide()
+        self.image3.Hide()
+        self.image4.Hide()
         self.text.Hide()
         self.grid.Hide()
         self.img_l.Hide()
@@ -576,7 +582,7 @@ class ShowImage(wx.Frame):
             # 关闭等待图，显示图片
             frame.close()
             self.image1.Show()
-        else:
+        elif len(image_paths) == 2:
             size, pos = self.__get_size_and_pos(2, image_paths)
             self.image1.SetSize(size[0], size[1])
             self.image1.SetPosition(wx.Point(pos[0][0], pos[0][1]))
@@ -589,6 +595,26 @@ class ShowImage(wx.Frame):
             frame.close()
             self.image1.Show()
             self.image2.Show()
+        elif len(image_paths) == 4:
+            size, pos = self.__get_size_and_pos(4, image_paths)
+            self.image1.SetSize(size[0], size[1])
+            self.image1.SetPosition(wx.Point(pos[0][0], pos[0][1]))
+            self.image1.SetBitmap(wx.Bitmap(image_paths[0][0:(len(image_paths[0]) - 4)] + "_temp.jpg"))
+            self.image2.SetSize(size[0], size[1])
+            self.image2.SetPosition(wx.Point(pos[1][0], pos[1][1]))
+            self.image2.SetBitmap(wx.Bitmap(image_paths[1][0:(len(image_paths[1]) - 4)] + "_temp.jpg"))
+            self.image3.SetSize(size[0], size[1])
+            self.image3.SetPosition(wx.Point(pos[2][0], pos[2][1]))
+            self.image3.SetBitmap(wx.Bitmap(image_paths[2][0:(len(image_paths[2]) - 4)] + "_temp.jpg"))
+            self.image4.SetSize(size[0], size[1])
+            self.image4.SetPosition(wx.Point(pos[3][0], pos[3][1]))
+            self.image4.SetBitmap(wx.Bitmap(image_paths[3][0:(len(image_paths[3]) - 4)] + "_temp.jpg"))
+            # 关闭等待图，显示图片
+            frame.close()
+            self.image1.Show()
+            self.image2.Show()
+            self.image3.Show()
+            self.image4.Show()
 
     def __get_size_and_pos(self, num, image_paths):
         """
@@ -662,6 +688,44 @@ class ShowImage(wx.Frame):
             img2 = Image.fromarray(cv2.cvtColor(image2, cv2.COLOR_BGR2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
             img_temp2 = img2.resize((size[0], size[1]))  # 修改图片大小
             img_temp2.save(image_paths[1][0:(len(image_paths[1]) - 4)] + "_temp.jpg")
+            return size, pos
+        elif num == 4:
+            pos = []
+            w = int((self.panel.GetSize()[0] - 15) / 2)
+            h = int((self.panel.GetSize()[1] - 15) / 2)
+            # 获取图片大小
+            img_w = image.shape[1]  # 获取到图片大小
+            img_h = image.shape[0]
+            view_w = 0
+            view_h = 0
+            if img_w > img_h:  # 图片长
+                # 图片长，那么，长度为其限制
+                view_w = w
+                view_h = int(img_h * view_w / img_w)
+                if view_h > h:  # 图片过高
+                    view_h = h
+                    view_w = int((img_w - 26) * view_h / img_h)
+            else:  # 图片高
+                # 图片高，那么，高度为其限制
+                view_h = h
+                view_w = int(img_w * view_h / img_h)
+                if view_w > w:  # 图片过长
+                    view_w = w
+                    view_h = int(img_h * view_w / img_w)
+
+            size = (view_w, view_h)
+            for i in range(0, 4):
+                if i < 2:
+                    pos_temp = ((w - view_w) / 2 + (i + 1) * 5 + i * w, (h - view_h) / 2 + 5)
+                else:
+                    i1 = i % 2
+                    pos_temp = ((w - view_w) / 2 + (i1 + 1) * 5 + i1 * w, (h - view_h) / 2 + h + 10)
+                pos += [pos_temp]
+            for i in range(0, 4):
+                image = cv2.imdecode(np.fromfile(image_paths[i], dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+                img = Image.fromarray(cv2.cvtColor(image, cv2.COLOR_BGR2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
+                img_temp = img.resize((size[0], size[1]))  # 修改图片大小
+                img_temp.save(image_paths[i][0:(len(image_paths[i]) - 4)] + "_temp.jpg")
             return size, pos
         else:
             return None, None
