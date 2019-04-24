@@ -5,6 +5,7 @@ import cv2
 import numpy as np
 import threading
 import os
+from PIL import Image
 
 
 class MainFrame(wx.Frame):
@@ -295,6 +296,7 @@ class MainFrame(wx.Frame):
         # self.tool18 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['Cr_Otsu Tool'])
         self.tool19 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['RGB Tool'])
         self.tool17 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/binarizationimage01.png'), self.label_dict['HSV Tool'])
+        self.tool20 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/compare01.png'), self.label_dict['Compare Tool'])
         self.tool12 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/back01.png'), self.label_dict['Step Delete Tool'])
         self.tool13 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/clear01.png'), self.label_dict['Clear Tool'])
         self.tool14 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/detection02.png'), self.label_dict['Skin Detection Tool'])
@@ -319,6 +321,7 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_TOOL, self.OnHSV, self.tool17)
         # self.Bind(wx.EVT_TOOL, self.OnCr_Otsu, self.tool18)
         self.Bind(wx.EVT_TOOL, self.OnRGB, self.tool19)
+        self.Bind(wx.EVT_TOOL, self.OnCompare, self.tool20)
 
     def __set_status_bar(self):
         """
@@ -1177,3 +1180,31 @@ class MainFrame(wx.Frame):
 
         self.child_frame.set_show_image(["../TempInfo/Skin RGB Detection Image_temp1.jpg",
                                          "../TempInfo/Skin RGB Detection Image_temp2.jpg"], self.child_frame)
+
+    def OnCompare(self, event):
+        """
+        多图像比较
+        :param event: 事件源
+        :return: None
+        """
+        # 开始弹窗，检测
+        self.child_frame = controls.ShowImage(title="Cb、Cr筛选+YCbCr椭圆模型+RGB+HSV", size=(1300, 750))  # 初始化对话框
+        self.child_frame.Show()  # 显示对话框
+        self.child_frame.set_icon("../images/compare02.ico")
+
+        # 建立线程，开始计算肤色似然度，同时生成肤色似然图与二值化图像
+        compare_thread = threading.Thread(target=self.__compare)
+        compare_thread.start()  # 启动线程
+
+    def __compare(self):
+        process = image.ImageProcess()
+        process.rgb_detection(self.image)
+
+        # 将Cb、Cr范围筛选二值化图像保存
+        img_temp = Image.fromarray(cv2.cvtColor(self.image_list[2], cv2.COLOR_GRAY2RGB))  # 将传参过来的OpenCV图转换成PIL.Image格式
+        img_temp.save("../TempInfo/Skin CbCr Detection Image_temp1.jpg")
+
+        self.child_frame.set_show_image(["../TempInfo/Skin CbCr Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin Ellipse Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin RGB Detection Image_temp1.jpg",
+                                         "../TempInfo/Skin HSV Detection Image_temp1.jpg"], self.child_frame)
