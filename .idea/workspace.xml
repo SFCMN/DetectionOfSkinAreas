@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a1900a1-8c7a-4191-8110-2c785cd526fb" name="Default Changelist" comment="" />
+    <list default="true" id="6a1900a1-8c7a-4191-8110-2c785cd526fb" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TempInfo/image_view.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/TempInfo/image_view.jpg" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/detection_of_skin_area/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/detection_of_skin_area/gui.py" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -11,7 +15,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$SAD_RGB_01.coverage" NAME="SAD_RGB_01 Coverage Results" MODIFIED="1556085667279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
     <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$controls.coverage" NAME="controls Coverage Results" MODIFIED="1555942092770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
-    <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$main.coverage" NAME="main Coverage Results" MODIFIED="1556098378787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
+    <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$main.coverage" NAME="main Coverage Results" MODIFIED="1556157863947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -32,7 +36,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="133">
+            <state relative-caret-position="135">
               <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
             </state>
           </provider>
@@ -41,17 +45,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="146">
-              <caret line="295" column="89" selection-start-line="295" selection-start-column="89" selection-end-line="295" selection-end-column="89" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config/labeldict.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="570">
-              <caret line="21" column="86" selection-start-line="21" selection-start-column="86" selection-end-line="21" selection-end-column="104" />
+            <state relative-caret-position="210">
+              <caret line="1247" lean-forward="true" selection-start-line="1247" selection-end-line="1247" />
             </state>
           </provider>
         </entry>
@@ -59,8 +54,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/controls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8693">
-              <caret line="725" column="16" selection-start-line="725" selection-start-column="16" selection-end-line="727" selection-end-column="88" />
+            <state relative-caret-position="351">
+              <caret line="913" selection-start-line="913" selection-end-line="913" />
               <folding>
                 <element signature="e#240#5961#0" />
                 <element signature="e#350#2155#0" />
@@ -128,8 +123,76 @@
                 <element signature="e#12751#12834#1" />
                 <element signature="e#12981#13324#0" />
                 <element signature="e#12981#13039#1" />
+                <element signature="e#13358#34972#0" />
+                <element signature="e#13437#18543#0" />
                 <element signature="e#13437#13518#1" />
                 <element signature="e#13548#14288#0" />
+                <element signature="e#18601#20494#0" />
+                <element signature="e#18601#18658#1" />
+                <element signature="e#20526#20692#0" />
+                <element signature="e#20526#20590#1" />
+                <element signature="e#20627#20692#0" />
+                <element signature="e#20723#20832#0" />
+                <element signature="e#20723#20773#1" />
+                <element signature="e#20871#21140#0" />
+                <element signature="e#20871#20926#1" />
+                <element signature="e#21185#21364#0" />
+                <element signature="e#21185#21259#1" />
+                <element signature="e#21424#23698#0" />
+                <element signature="e#21424#21474#1" />
+                <element signature="e#21521#21877#0" />
+                <element signature="e#21926#22535#0" />
+                <element signature="e#22584#23698#0" />
+                <element signature="e#23760#28559#0" />
+                <element signature="e#23760#23890#1" />
+                <element signature="e#24020#25175#0" />
+                <element signature="e#24249#24471#0" />
+                <element signature="e#24404#24471#0" />
+                <element signature="e#24513#24735#0" />
+                <element signature="e#24668#24735#0" />
+                <element signature="e#25211#26852#0" />
+                <element signature="e#25517#25746#0" />
+                <element signature="e#25672#25746#0" />
+                <element signature="e#25788#26010#0" />
+                <element signature="e#25943#26010#0" />
+                <element signature="e#26098#26205#0" />
+                <element signature="e#26888#28515#0" />
+                <element signature="e#27210#27439#0" />
+                <element signature="e#27365#27439#0" />
+                <element signature="e#27481#27703#0" />
+                <element signature="e#27636#27703#0" />
+                <element signature="e#27791#28082#0" />
+                <element signature="e#27937#28048#0" />
+                <element signature="e#28133#28486#0" />
+                <element signature="e#28638#29199#0" />
+                <element signature="e#28638#28742#1" />
+                <element signature="e#28989#29130#0" />
+                <element signature="e#29027#29130#0" />
+                <element signature="e#29244#29683#0" />
+                <element signature="e#29244#29328#1" />
+                <element signature="e#29337#29358#0" />
+                <element signature="e#29625#29683#0" />
+                <element signature="e#29737#31538#0" />
+                <element signature="e#29737#29789#1" />
+                <element signature="e#30060#30075#0" />
+                <element signature="e#30152#30167#0" />
+                <element signature="e#31591#31784#0" />
+                <element signature="e#31591#31645#1" />
+                <element signature="e#31817#31891#0" />
+                <element signature="e#31817#31868#1" />
+                <element signature="e#31939#33600#0" />
+                <element signature="e#31939#32020#1" />
+                <element signature="e#32064#32673#0" />
+                <element signature="e#32721#33404#0" />
+                <element signature="e#33442#33600#0" />
+                <element signature="e#33639#34180#0" />
+                <element signature="e#33639#33719#1" />
+                <element signature="e#33866#33951#0" />
+                <element signature="e#34234#34547#0" />
+                <element signature="e#34234#34315#1" />
+                <element signature="e#34588#34972#0" />
+                <element signature="e#34588#34677#1" />
+                <element signature="e#34865#34972#0" />
               </folding>
             </state>
           </provider>
@@ -138,10 +201,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/image.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1163">
-              <caret line="328" column="94" selection-start-line="328" selection-start-column="94" selection-end-line="328" selection-end-column="94" />
+            <state relative-caret-position="81">
+              <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
               <folding>
-                <element signature="e#0#21#0" expanded="true" />
+                <element signature="e#183#15596#0" />
                 <element signature="e#239#787#0" />
                 <element signature="e#239#364#1" />
                 <element signature="e#832#1280#0" />
@@ -186,7 +249,27 @@
                 <element signature="e#8985#9119#0" />
                 <element signature="e#9594#10320#0" />
                 <element signature="e#9594#9673#1" />
+                <element signature="e#10375#11443#0" />
                 <element signature="e#10375#10474#1" />
+                <element signature="e#11191#11423#0" />
+                <element signature="e#11229#11423#0" />
+                <element signature="e#11494#12111#0" />
+                <element signature="e#11494#11596#1" />
+                <element signature="e#11802#12073#0" />
+                <element signature="e#11840#12073#0" />
+                <element signature="e#12157#12874#0" />
+                <element signature="e#12157#12239#1" />
+                <element signature="e#12924#13650#0" />
+                <element signature="e#12924#13018#1" />
+                <element signature="e#13690#14053#0" />
+                <element signature="e#13690#13789#1" />
+                <element signature="e#14089#14847#0" />
+                <element signature="e#14089#14172#1" />
+                <element signature="e#14326#14809#0" />
+                <element signature="e#14364#14809#0" />
+                <element signature="e#14529#14752#0" />
+                <element signature="e#14893#15596#0" />
+                <element signature="e#14893#14976#1" />
               </folding>
             </state>
           </provider>
@@ -232,9 +315,10 @@
         <option value="$PROJECT_DIR$/config/aboutsoft.txt" />
         <option value="$PROJECT_DIR$/config/aboutsoft.html" />
         <option value="$PROJECT_DIR$/detection_of_skin_area/SAD_RGB_01.py" />
-        <option value="$PROJECT_DIR$/detection_of_skin_area/controls.py" />
         <option value="$PROJECT_DIR$/detection_of_skin_area/image.py" />
         <option value="$PROJECT_DIR$/config/labeldict.txt" />
+        <option value="$PROJECT_DIR$/detection_of_skin_area/controls.py" />
+        <option value="$PROJECT_DIR$/detection_of_skin_area/data.py" />
         <option value="$PROJECT_DIR$/detection_of_skin_area/gui.py" />
       </list>
     </option>
@@ -250,17 +334,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="DetectionOfSkinAreas" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -277,6 +350,17 @@
               <item name="DetectionOfSkinAreas" type="b2602c69:ProjectViewProjectNode" />
               <item name="DetectionOfSkinAreas" type="462c0819:PsiDirectoryNode" />
               <item name="detection_of_skin_area" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="DetectionOfSkinAreas" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
           </expand>
           <select />
@@ -411,7 +495,9 @@
       <workItem from="1556079849267" duration="302000" />
       <workItem from="1556081233343" duration="5033000" />
       <workItem from="1556088156270" duration="7758000" />
-      <workItem from="1556097591141" duration="579000" />
+      <workItem from="1556097591141" duration="1101000" />
+      <workItem from="1556156735795" duration="971000" />
+      <workItem from="1556204258709" duration="257000" />
     </task>
     <task id="LOCAL-00001" summary="完整可运行项目-功能未完成（基础版本）">
       <created>1555913136860</created>
@@ -441,22 +527,35 @@
       <option name="project" value="LOCAL" />
       <updated>1556092790715</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="0.1.0-【退出】-实现">
+      <created>1556098420711</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1556098420711</updated>
+    </task>
+    <task id="LOCAL-00006" summary="0.1.0-【退出】-实现">
+      <created>1556098550562</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1556098550562</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25992000" />
+    <option name="totallyTimeSpent" value="27742000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="7" />
-    <editor active="true" />
+    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19213313" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19818456" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3276923" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3276923" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -502,6 +601,20 @@
         </entry>
       </map>
     </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -511,7 +624,8 @@
     <MESSAGE value="完整可运行项目-功能未完成（基础版本）-develop" />
     <MESSAGE value="完整可运行项目-README已编辑（基础版本）" />
     <MESSAGE value="0.1.0-【多色彩空间比较】-已实现" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.1.0-【多色彩空间比较】-已实现" />
+    <MESSAGE value="0.1.0-【退出】-实现" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.1.0-【退出】-实现" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -541,24 +655,10 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/SAD_RGB_01.py" />
-    <entry file="file://$PROJECT_DIR$/detection_of_skin_area/rw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="12" column="34" selection-start-line="11" selection-start-column="8" selection-end-line="12" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://C:/MySoft/DevelopmentEnvironment/Python3/Lib/threading.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="23136">
           <caret line="864" selection-start-line="864" selection-end-line="864" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/detection_of_skin_area/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="133">
-          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -569,10 +669,74 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/detection_of_skin_area/rw.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="20" selection-start-column="20" selection-end-column="20" />
+          <folding>
+            <element signature="e#25#912#0" />
+            <element signature="e#53#57#0" />
+            <element signature="e#121#536#0" />
+            <element signature="e#121#216#1" />
+            <element signature="e#386#475#0" />
+            <element signature="e#617#912#0" />
+            <element signature="e#617#749#1" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detection_of_skin_area/data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="108">
+          <caret line="198" selection-start-line="198" selection-end-line="198" />
+          <folding>
+            <element signature="e#107#6521#0" />
+            <element signature="e#135#181#0" />
+            <element signature="e#228#1062#0" />
+            <element signature="e#228#313#1" />
+            <element signature="e#539#1030#0" />
+            <element signature="e#812#879#0" />
+            <element signature="e#963#1030#0" />
+            <element signature="e#1114#1437#0" />
+            <element signature="e#1114#1209#1" />
+            <element signature="e#1298#1416#0" />
+            <element signature="e#1342#1416#0" />
+            <element signature="e#1498#3110#0" />
+            <element signature="e#1498#1626#1" />
+            <element signature="e#2259#2337#0" />
+            <element signature="e#2453#2826#0" />
+            <element signature="e#3203#3690#0" />
+            <element signature="e#3203#3303#1" />
+            <element signature="e#3766#4151#0" />
+            <element signature="e#3766#3861#1" />
+            <element signature="e#3940#4124#0" />
+            <element signature="e#4207#4683#0" />
+            <element signature="e#4207#4296#1" />
+            <element signature="e#4750#5041#0" />
+            <element signature="e#4750#4867#1" />
+            <element signature="e#5090#5716#0" />
+            <element signature="e#5090#5161#1" />
+            <element signature="e#5265#5716#0" />
+            <element signature="e#5365#5566#0" />
+            <element signature="e#5783#6521#0" />
+            <element signature="e#5783#5911#1" />
+            <element signature="e#5920#5939#0" />
+            <element signature="e#6132#6319#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/detection_of_skin_area/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/controls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8693">
-          <caret line="725" column="16" selection-start-line="725" selection-start-column="16" selection-end-line="727" selection-end-column="88" />
+        <state relative-caret-position="351">
+          <caret line="913" selection-start-line="913" selection-end-line="913" />
           <folding>
             <element signature="e#240#5961#0" />
             <element signature="e#350#2155#0" />
@@ -640,18 +804,86 @@
             <element signature="e#12751#12834#1" />
             <element signature="e#12981#13324#0" />
             <element signature="e#12981#13039#1" />
+            <element signature="e#13358#34972#0" />
+            <element signature="e#13437#18543#0" />
             <element signature="e#13437#13518#1" />
             <element signature="e#13548#14288#0" />
+            <element signature="e#18601#20494#0" />
+            <element signature="e#18601#18658#1" />
+            <element signature="e#20526#20692#0" />
+            <element signature="e#20526#20590#1" />
+            <element signature="e#20627#20692#0" />
+            <element signature="e#20723#20832#0" />
+            <element signature="e#20723#20773#1" />
+            <element signature="e#20871#21140#0" />
+            <element signature="e#20871#20926#1" />
+            <element signature="e#21185#21364#0" />
+            <element signature="e#21185#21259#1" />
+            <element signature="e#21424#23698#0" />
+            <element signature="e#21424#21474#1" />
+            <element signature="e#21521#21877#0" />
+            <element signature="e#21926#22535#0" />
+            <element signature="e#22584#23698#0" />
+            <element signature="e#23760#28559#0" />
+            <element signature="e#23760#23890#1" />
+            <element signature="e#24020#25175#0" />
+            <element signature="e#24249#24471#0" />
+            <element signature="e#24404#24471#0" />
+            <element signature="e#24513#24735#0" />
+            <element signature="e#24668#24735#0" />
+            <element signature="e#25211#26852#0" />
+            <element signature="e#25517#25746#0" />
+            <element signature="e#25672#25746#0" />
+            <element signature="e#25788#26010#0" />
+            <element signature="e#25943#26010#0" />
+            <element signature="e#26098#26205#0" />
+            <element signature="e#26888#28515#0" />
+            <element signature="e#27210#27439#0" />
+            <element signature="e#27365#27439#0" />
+            <element signature="e#27481#27703#0" />
+            <element signature="e#27636#27703#0" />
+            <element signature="e#27791#28082#0" />
+            <element signature="e#27937#28048#0" />
+            <element signature="e#28133#28486#0" />
+            <element signature="e#28638#29199#0" />
+            <element signature="e#28638#28742#1" />
+            <element signature="e#28989#29130#0" />
+            <element signature="e#29027#29130#0" />
+            <element signature="e#29244#29683#0" />
+            <element signature="e#29244#29328#1" />
+            <element signature="e#29337#29358#0" />
+            <element signature="e#29625#29683#0" />
+            <element signature="e#29737#31538#0" />
+            <element signature="e#29737#29789#1" />
+            <element signature="e#30060#30075#0" />
+            <element signature="e#30152#30167#0" />
+            <element signature="e#31591#31784#0" />
+            <element signature="e#31591#31645#1" />
+            <element signature="e#31817#31891#0" />
+            <element signature="e#31817#31868#1" />
+            <element signature="e#31939#33600#0" />
+            <element signature="e#31939#32020#1" />
+            <element signature="e#32064#32673#0" />
+            <element signature="e#32721#33404#0" />
+            <element signature="e#33442#33600#0" />
+            <element signature="e#33639#34180#0" />
+            <element signature="e#33639#33719#1" />
+            <element signature="e#33866#33951#0" />
+            <element signature="e#34234#34547#0" />
+            <element signature="e#34234#34315#1" />
+            <element signature="e#34588#34972#0" />
+            <element signature="e#34588#34677#1" />
+            <element signature="e#34865#34972#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1163">
-          <caret line="328" column="94" selection-start-line="328" selection-start-column="94" selection-end-line="328" selection-end-column="94" />
+        <state relative-caret-position="81">
+          <caret line="9" column="19" selection-start-line="9" selection-start-column="19" selection-end-line="9" selection-end-column="19" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#183#15596#0" />
             <element signature="e#239#787#0" />
             <element signature="e#239#364#1" />
             <element signature="e#832#1280#0" />
@@ -696,15 +928,35 @@
             <element signature="e#8985#9119#0" />
             <element signature="e#9594#10320#0" />
             <element signature="e#9594#9673#1" />
+            <element signature="e#10375#11443#0" />
             <element signature="e#10375#10474#1" />
+            <element signature="e#11191#11423#0" />
+            <element signature="e#11229#11423#0" />
+            <element signature="e#11494#12111#0" />
+            <element signature="e#11494#11596#1" />
+            <element signature="e#11802#12073#0" />
+            <element signature="e#11840#12073#0" />
+            <element signature="e#12157#12874#0" />
+            <element signature="e#12157#12239#1" />
+            <element signature="e#12924#13650#0" />
+            <element signature="e#12924#13018#1" />
+            <element signature="e#13690#14053#0" />
+            <element signature="e#13690#13789#1" />
+            <element signature="e#14089#14847#0" />
+            <element signature="e#14089#14172#1" />
+            <element signature="e#14326#14809#0" />
+            <element signature="e#14364#14809#0" />
+            <element signature="e#14529#14752#0" />
+            <element signature="e#14893#15596#0" />
+            <element signature="e#14893#14976#1" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="295" column="89" selection-start-line="295" selection-start-column="89" selection-end-line="295" selection-end-column="89" />
+        <state relative-caret-position="210">
+          <caret line="1247" lean-forward="true" selection-start-line="1247" selection-end-line="1247" />
         </state>
       </provider>
     </entry>

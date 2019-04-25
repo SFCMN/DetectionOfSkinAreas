@@ -1245,3 +1245,11 @@ class MainFrame(wx.Frame):
         :return: None
         """
         self.Destroy()
+
+    # def OnStep(self, event):
+    #     """
+    #     单步图像处理，，当仅仅
+    #     :param event:
+    #     :return:
+    #     """
+
