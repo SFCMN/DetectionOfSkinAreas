@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6a1900a1-8c7a-4191-8110-2c785cd526fb" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TempInfo/image_view.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/TempInfo/image_view.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/detection_of_skin_area/gui.py" beforeDir="false" afterPath="$PROJECT_DIR$/detection_of_skin_area/gui.py" afterDir="false" />
-    </list>
+    <list default="true" id="6a1900a1-8c7a-4191-8110-2c785cd526fb" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +11,7 @@
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$SAD_RGB_01.coverage" NAME="SAD_RGB_01 Coverage Results" MODIFIED="1556085667279" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
     <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$controls.coverage" NAME="controls Coverage Results" MODIFIED="1555942092770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
-    <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$main.coverage" NAME="main Coverage Results" MODIFIED="1556157863947" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
+    <SUITE FILE_PATH="coverage/DetectionOfSkinAreas$main.coverage" NAME="main Coverage Results" MODIFIED="1556205000314" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/detection_of_skin_area" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -36,7 +32,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="135">
+            <state relative-caret-position="133">
               <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
             </state>
           </provider>
@@ -45,8 +41,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="1247" lean-forward="true" selection-start-line="1247" selection-end-line="1247" />
+            <state relative-caret-position="211">
+              <caret line="1255" selection-start-line="1255" selection-end-line="1255" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -54,8 +53,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/detection_of_skin_area/controls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="351">
-              <caret line="913" selection-start-line="913" selection-end-line="913" />
+            <state relative-caret-position="1401">
+              <caret line="912" selection-start-line="912" selection-end-line="912" />
               <folding>
                 <element signature="e#240#5961#0" />
                 <element signature="e#350#2155#0" />
@@ -123,7 +122,6 @@
                 <element signature="e#12751#12834#1" />
                 <element signature="e#12981#13324#0" />
                 <element signature="e#12981#13039#1" />
-                <element signature="e#13358#34972#0" />
                 <element signature="e#13437#18543#0" />
                 <element signature="e#13437#13518#1" />
                 <element signature="e#13548#14288#0" />
@@ -190,9 +188,7 @@
                 <element signature="e#33866#33951#0" />
                 <element signature="e#34234#34547#0" />
                 <element signature="e#34234#34315#1" />
-                <element signature="e#34588#34972#0" />
                 <element signature="e#34588#34677#1" />
-                <element signature="e#34865#34972#0" />
               </folding>
             </state>
           </provider>
@@ -498,6 +494,7 @@
       <workItem from="1556097591141" duration="1101000" />
       <workItem from="1556156735795" duration="971000" />
       <workItem from="1556204258709" duration="257000" />
+      <workItem from="1556204655122" duration="351000" />
     </task>
     <task id="LOCAL-00001" summary="完整可运行项目-功能未完成（基础版本）">
       <created>1555913136860</created>
@@ -541,21 +538,29 @@
       <option name="project" value="LOCAL" />
       <updated>1556098550562</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="0.1.0-【退出】实现-feature合并前">
+      <created>1556204803647</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1556204803647</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="27742000" />
+    <option name="totallyTimeSpent" value="28093000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19818456" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.20121029" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3276923" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3276923" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -625,7 +630,8 @@
     <MESSAGE value="完整可运行项目-README已编辑（基础版本）" />
     <MESSAGE value="0.1.0-【多色彩空间比较】-已实现" />
     <MESSAGE value="0.1.0-【退出】-实现" />
-    <option name="LAST_COMMIT_MESSAGE" value="0.1.0-【退出】-实现" />
+    <MESSAGE value="0.1.0-【退出】实现-feature合并前" />
+    <option name="LAST_COMMIT_MESSAGE" value="0.1.0-【退出】实现-feature合并前" />
   </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/README.md">
@@ -728,15 +734,15 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
+        <state relative-caret-position="133">
           <caret line="6" column="20" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="20" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/controls.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
-          <caret line="913" selection-start-line="913" selection-end-line="913" />
+        <state relative-caret-position="1401">
+          <caret line="912" selection-start-line="912" selection-end-line="912" />
           <folding>
             <element signature="e#240#5961#0" />
             <element signature="e#350#2155#0" />
@@ -804,7 +810,6 @@
             <element signature="e#12751#12834#1" />
             <element signature="e#12981#13324#0" />
             <element signature="e#12981#13039#1" />
-            <element signature="e#13358#34972#0" />
             <element signature="e#13437#18543#0" />
             <element signature="e#13437#13518#1" />
             <element signature="e#13548#14288#0" />
@@ -871,9 +876,7 @@
             <element signature="e#33866#33951#0" />
             <element signature="e#34234#34547#0" />
             <element signature="e#34234#34315#1" />
-            <element signature="e#34588#34972#0" />
             <element signature="e#34588#34677#1" />
-            <element signature="e#34865#34972#0" />
           </folding>
         </state>
       </provider>
@@ -955,8 +958,11 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/detection_of_skin_area/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="1247" lean-forward="true" selection-start-line="1247" selection-end-line="1247" />
+        <state relative-caret-position="211">
+          <caret line="1255" selection-start-line="1255" selection-end-line="1255" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
