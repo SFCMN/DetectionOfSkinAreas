@@ -29,6 +29,10 @@ class MainFrame(wx.Frame):
         self.thread1 = None     # 子线程
         self.thread2 = None
         self.help_control_type = -1     # 关于控件类型
+        self.step_place = 0     # 单步检测的步骤计数
+        self.step_title_list = []   # 单步检测模块标题列表
+        self.step_window_list = []  # 单步检测模块窗口列表
+        self.step_image_list = []   # 单步检测模块图像列表
         self.language_style = personal_settings['language_style']   # 语言风格
         self.label_dict = None    # GUI控件label集合
         if self.language_style == 'cn':
@@ -321,6 +325,7 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_TOOL, self.OnStepDelete, self.tool12)
         self.Bind(wx.EVT_TOOL, self.OnDeleteAll, self.tool13)
         self.Bind(wx.EVT_TOOL, self.OnDetection, self.tool14)
+        self.Bind(wx.EVT_TOOL, self.OnStep, self.tool15)
         self.Bind(wx.EVT_TOOL, self.OnEllipse, self.tool16)
         self.Bind(wx.EVT_TOOL, self.OnHSV, self.tool17)
         # self.Bind(wx.EVT_TOOL, self.OnCr_Otsu, self.tool18)
@@ -422,6 +427,10 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_BUTTON, self.OnStepDelete, self.btn3)
         self.Bind(wx.EVT_BUTTON, self.OnDeleteAll, self.btn4)
         self.Bind(wx.EVT_BUTTON, self.OnDetection, self.btn5)
+        self.Bind(wx.EVT_BUTTON, self.OnStep, self.btn6)
+        self.Bind(wx.EVT_BUTTON, self.OnStep, self.btn7)
+        self.Bind(wx.EVT_BUTTON, self.OnStep, self.btn8)
+        self.Bind(wx.EVT_BUTTON, self.OnStep, self.btn9)
         self.Bind(wx.EVT_BUTTON, self.OnConver, self.title_window_2_list)
         self.Bind(wx.EVT_BUTTON, self.OnConver, self.title_list_2_window)
         for i in range(0, len(self.title_list)):
@@ -534,7 +543,7 @@ class MainFrame(wx.Frame):
             file_path = self.dir_name + "\\" + self.file_name
         file_dialog.Destroy()
         if file_path is not None and "" != file_path:
-            for i in [1, 2, 3, 4, 6, 9, 10, 16, 17, 18, 26, 27, 33, 34, 35, 37, 38, 39, 43, 44, 45, 46, 47]:
+            for i in [1, 2, 3, 4, 6, 9, 10, 16, 17, 18, 26, 27, 33, 34, 35, 37, 38, 39, 43, 44, 45, 46]:
                 self.controls_list[i].Enable(True)   # 如果导入了图像,将一些控件解禁
             for i in [0, 25, 41]:
                 self.controls_list[i].Enable(False)   # 如果导入了图像,将一些控件封禁
@@ -711,7 +720,7 @@ class MainFrame(wx.Frame):
         self.image = None
         self.image_list.clear()
         # 将一些控件封禁
-        for i in [1, 2, 3, 4, 6, 9, 10, 16, 17, 18, 26, 27, 33, 34, 35, 37, 38, 39, 43, 44, 45, 46, 47]:
+        for i in [1, 2, 3, 4, 6, 9, 10, 16, 17, 18, 26, 27, 33, 34, 35, 37, 38, 39, 42, 43, 44, 45, 46, 47]:
             self.controls_list[i].Enable(False)
         # 将导入图像按钮解禁
         for i in [0, 25, 41]:
@@ -726,6 +735,18 @@ class MainFrame(wx.Frame):
             i.set_pattern(False)
             i.set_status(False)
             i.conver()
+        # 单步检测模块情况下
+        self.SetWindowStyle(wx.DEFAULT_FRAME_STYLE)  # 还原窗口模式
+        self.step_place = 0     # 将单步检测模块步骤清空
+        for i in range(len(self.step_title_list) - 1, -1, -1):     # 销毁控件
+            self.step_title_list[i].DestroyLater()
+        for i in range(len(self.step_window_list) - 1, -1, -1):     # 销毁控件
+            self.step_window_list[i].DestroyLater()
+        for i in range(len(self.step_image_list) - 1, -1, -1):  # 销毁控件
+            del self.step_image_list[i]
+        self.step_title_list.clear()
+        self.step_window_list.clear()
+        self.step_image_list.clear()   # 清空列表
 
     def OnCreateModel(self, event):
         """
@@ -888,29 +909,6 @@ class MainFrame(wx.Frame):
             if self.title_list[space] in self.list_selected:
                 self.list_selected.remove(self.title_list[space])
         self.__change_title_color()
-
-    def OnStepDelete(self, event):
-        """
-        单步清除
-        :param event: 事件源
-        :return: None
-        """
-        # # 单步清除时，将模式置为列表模式，同时暂时不可改变模式
-        # if self.pattern is False:
-        #     self.OnConver(None)
-        # # 当前图像列表不为空时，清除最后一个图像，将最后一个视图及其标题隐藏
-        # image_len = len(self.image_list)
-        # if image_len != 0:
-        #     self.image_list.pop()
-        #     self.title_list[image_len - 1].Hide()
-        #     self.window_list[image_len - 1].Hide()
-        #     # 当所有图像清空时，恢复初始状态（调用清空图像函数）
-        #     if len(self.image_list) == 0:
-        #         self.OnDeleteAll(None)
-        #     else:
-        #         if len(self.image_list) == 1:
-        #             self.OnConver(None)
-        print("暂时没写")
 
     def OnDrawPlot(self, event):
         """
@@ -1257,10 +1255,271 @@ class MainFrame(wx.Frame):
         multi_frame = controls.MultiSchemeFrame(image=self.image, title='多方案比较')
         multi_frame.Show()
 
-    # def OnStep(self, event):
-    #     """
-    #     单步图像处理，，当仅仅
-    #     :param event:
-    #     :return:
-    #     """
+    def OnStep(self, event):
+        """
+        单步图像处理
+        :param event: 事件源
+        :return: None
+        """
+        # 计算图片大小    横向间隔：10 4 4 10 347 纵向间隔：5 4 5 300
+        image_size = self.__get_image_size(347, 300)
+        # print(image_size)
+        if self.step_place == 0:
+            # 最大化窗口
+            size = wx.DisplaySize()
+            self.SetSize(size)
+            self.SetPosition(wx.Point(0, 0))
+            self.SetWindowStyle(wx.MINIMIZE_BOX | wx.SYSTEM_MENU | wx.CAPTION | wx.CLOSE_BOX | wx.CLIP_CHILDREN)
+            # 改变显示模式为列表模式
+            self.title_original_image.Hide()
+            self.window_original.Hide()
+            self.title_window_2_list.Hide()
+            # 显示原图和光照补偿图
+            selected = self.choice1.GetSelection()
+            title_original_image = buttons.GenButton(self.title_panel, label="▷原图", pos=(0, 0), size=(60, 30))
+            if selected == 0:   # 不进行光照补偿
+                light_size = (120, 30)
+                label = "▷未光照补偿"
+                image1 = self.image
+            elif selected == 1:     # GrayWorld
+                light_size = (200, 30)
+                label = "▷GrayWorld光照补偿"
+                image_process = image.ImageProcess()
+                image1 = image_process.illumination_compensation_gray_world(self.image)
+            else:       # 基于参考白
+                light_size = (200, 30)
+                label = "▷基于参考白光照补偿"
+                image_process = image.ImageProcess()
+                image1 = image_process.illumination_compensation_reference_white(self.image)
+            title_light_image = buttons.GenButton(self.title_panel, label=label, pos=(65, 0), size=light_size)
+            pos1 = (10 + (347 - image_size[0]) / 2, 5 + (300 - image_size[1]) / 2)
+            pos2 = (361 + (347 - image_size[0]) / 2, 5 + (300 - image_size[1]) / 2)
+            window_original_image = controls.ImageView(self.window_panel, image=self.image, pos=pos1,
+                                                      size=(image_size[0], image_size[1]))
+            window_light_image = controls.ImageView(self.window_panel, image=image1, pos=pos2,
+                                                       size=(image_size[0], image_size[1]))
+            # 按钮属性
+            self.__set_button_properties(title_original_image)
+            self.__set_button_properties(title_light_image)
+            # 控件入栈
+            self.step_title_list += [title_original_image, title_light_image]
+            self.step_window_list += [window_original_image, window_light_image]
+            # 图像入栈
+            self.step_image_list += [self.image, image1]
+            # 步骤累加
+            self.step_place = self.step_place + 1
+            # 解禁下一步
+            self.controls_list[47].Enable(True)
+            self.controls_list[48].Enable(True)
+            # 封禁当前步骤
+            self.controls_list[45].Enable(False)
+            self.controls_list[46].Enable(False)
+            # 解禁单步清除
+            self.controls_list[42].Enable(True)
+            # 封禁肤色检测
+            self.controls_list[44].Enable(False)
+        elif self.step_place == 1:
+            selected = self.choice2.GetSelection()
+            if selected == 0:  # 不进行去噪
+                denoise_size = (80, 30)
+                label = "▷未去噪"
+                image1 = self.step_image_list[len(self.step_image_list) - 1]
+            elif selected == 1:  # 中值滤波
+                denoise_size = (140, 30)
+                label = "▷中值滤波去噪"
+                image_process = image.ImageProcess()
+                image1 = image_process.denoise_median_blur(self.step_image_list[len(self.step_image_list) - 1])
+            elif selected == 2:  # 均值滤波
+                denoise_size = (140, 30)
+                label = "▷均值滤波去噪"
+                image_process = image.ImageProcess()
+                image1 = image_process.denoise_blur(self.step_image_list[len(self.step_image_list) - 1])
+            elif selected == 3:  # 高斯滤波
+                denoise_size = (140, 30)
+                label = "▷高斯滤波去噪"
+                image_process = image.ImageProcess()
+                image1 = image_process.denoise_gaussian_blur(self.step_image_list[len(self.step_image_list) - 1])
+            else:       # 双边滤波
+                denoise_size = (140, 30)
+                label = "▷双边滤波去噪"
+                image_process = image.ImageProcess()
+                image1 = image_process.denoise_bilateral_filter(self.step_image_list[len(self.step_image_list) - 1])
+            denoise_pos = self.step_title_list[1].GetPosition()[0] + self.step_title_list[1].GetSize()[0] + 5
+            title_denoise_image = buttons.GenButton(self.title_panel, label=label, pos=(denoise_pos, 0), size=denoise_size)
+            pos1 = (712 + (347 - image_size[0]) / 2, 5 + (300 - image_size[1]) / 2)
+            window_denoise_image = controls.ImageView(self.window_panel, image=image1, pos=pos1,
+                                                       size=(image_size[0], image_size[1]))
+            # 按钮属性
+            self.__set_button_properties(title_denoise_image)
+            # 控件入栈
+            self.step_title_list += [title_denoise_image]
+            self.step_window_list += [window_denoise_image]
+            # 图像入栈
+            self.step_image_list += [image1]
+            # 步骤累加
+            self.step_place = self.step_place + 1
+            # 解禁下一步
+            self.controls_list[49].Enable(True)
+            # 封禁当前步骤
+            self.controls_list[47].Enable(False)
+            self.controls_list[48].Enable(False)
+        elif self.step_place == 2:
+            image_process = image.ImageProcess()
+            image1 = image_process.crcb_range_sceening(self.step_image_list[len(self.step_image_list) - 1])
+            detection_pos = self.step_title_list[2].GetPosition()[0] + self.step_title_list[2].GetSize()[0] + 5
+            title_detection_image = buttons.GenButton(self.title_panel, label="▷肤色检测", pos=(detection_pos, 0),
+                                                    size=(100, 30))
+            pos1 = (10 + (347 - image_size[0]) / 2, 309 + (300 - image_size[1]) / 2)
+            window_detection_image = controls.ImageView(self.window_panel, image=image1, pos=pos1,
+                                                      size=(image_size[0], image_size[1]))
+            # 按钮属性
+            self.__set_button_properties(title_detection_image)
+            # 控件入栈
+            self.step_title_list += [title_detection_image]
+            self.step_window_list += [window_detection_image]
+            # 图像入栈
+            self.step_image_list += [image1]
+            # 步骤累加
+            self.step_place = self.step_place + 1
+            # 解禁下一步
+            self.controls_list[50].Enable(True)
+            # 封禁当前步骤
+            self.controls_list[49].Enable(False)
+        elif self.step_place == 3:
+            image_process = image.ImageProcess()
+            image1 = image_process.skin_segmentation(None, self.step_image_list[len(self.step_image_list) - 1])
+            binarization_pos = self.step_title_list[3].GetPosition()[0] + self.step_title_list[3].GetSize()[0] + 5
+            title_binarization_image = buttons.GenButton(self.title_panel, label="▷二值化", pos=(binarization_pos, 0),
+                                                      size=(80, 30))
+            pos1 = (361 + (347 - image_size[0]) / 2, 309 + (300 - image_size[1]) / 2)
+            window_binarization_image = controls.ImageView(self.window_panel, image=image1, pos=pos1,
+                                                        size=(image_size[0], image_size[1]))
+            # 按钮属性
+            self.__set_button_properties(title_binarization_image)
+            # 控件入栈
+            self.step_title_list += [title_binarization_image]
+            self.step_window_list += [window_binarization_image]
+            # 图像入栈
+            self.step_image_list += [image1]
+            # 步骤累加
+            self.step_place = self.step_place + 1
+            # 封禁当前步骤
+            self.controls_list[50].Enable(False)
+        else:       # 无效操作
+            pass
+        # 选中最后一个操作
+        self.__set_controls_list_foregroundcolour(self.step_title_list)
+        self.update_title()
+        # print("窗口面板大小为：" + str(self.window_panel.GetSize()))
 
+    def OnStepDelete(self, event):
+        """
+        单步清除
+        :param event: 事件源
+        :return: None
+        """
+        # 删除标题，窗口，图像
+        self.step_title_list[len(self.step_title_list) - 1].DestroyLater()
+        self.step_window_list[len(self.step_window_list) - 1].DestroyLater()
+        del self.step_title_list[len(self.step_title_list) - 1]
+        del self.step_window_list[len(self.step_window_list) - 1]
+        # self.step_image_list[len(self.step_image_list) - 1]
+        # 重置当前位置
+        if self.step_place == 1:    # 清除光照补偿图像
+            # 重置位置及复位
+            self.step_place = 0
+            image_temp = self.image
+            self.OnDeleteAll(None)
+            # 将原图显示出来
+            self.__reshow_original_image(image_temp)
+
+            # 解禁清除图像按钮和肤色检测按钮
+            self.controls_list[43].Enable(True)
+            self.controls_list[44].Enable(True)
+            # 解禁上一步
+            self.controls_list[45].Enable(True)
+            self.controls_list[46].Enable(True)
+            # 封禁当前步骤
+            self.controls_list[47].Enable(False)
+            self.controls_list[48].Enable(False)
+        elif self.step_place == 2:  # 清除去噪图像
+            self.step_place = 1
+            # 解禁上一步
+            self.controls_list[47].Enable(True)
+            self.controls_list[48].Enable(True)
+            # 封禁当前步骤
+            self.controls_list[49].Enable(False)
+        elif self.step_place == 3:  # 清除肤色检测图像
+            self.step_place = 2
+            # 解禁上一步
+            self.controls_list[49].Enable(True)
+            # 封禁当前步骤
+            self.controls_list[50].Enable(False)
+        else:       # 清除二值化图像
+            self.step_place = 3
+            # 解禁上一步
+            self.controls_list[50].Enable(True)
+        # 选中最后一个操作
+        self.__set_controls_list_foregroundcolour(self.step_title_list)
+        self.update_title()
+
+    def __reshow_original_image(self, image):
+        """
+        单步清除完后，重现原图
+        :param image: 缓存的原图
+        :return: None
+        """
+        self.image = image
+        self.image_list += [self.image]
+
+        # 将welcome页面隐藏
+        self.title_welcome.Hide()
+        self.window_welcome.Hide()
+        # 显示原图
+        self.title_original_image.Show()
+        self.window_original.Show()
+        self.window_original.set_image(self.image)
+
+        self.window_selected = self.window_original
+        self.title_window_2_list.Show()
+        size, pos = self.__get_size_and_position()
+        self.window_original.SetSize(size[0], size[1])
+        self.window_original.SetPosition(wx.Point(pos[0][0], pos[0][1]))
+
+    def __set_controls_list_foregroundcolour(self, controls_list):
+        """
+        将给定的控件列表中最后一个控件前景色置为红色，其余置为黑色
+        :param controls_list: 给定控件列表
+        :return: None
+        """
+        for i in range(0, len(controls_list)):
+            controls_list[i].SetForegroundColour('black')
+            if i == (len(controls_list) - 1):
+                controls_list[i].SetForegroundColour('red')
+
+    def __get_image_size(self, w, h):
+        """
+        计算单步检测模块下的图像大小
+        :return: 计算得出的图像大小
+        """
+        # 获取图片大小
+        img_w = self.image.shape[1]  # 获取到图片大小
+        img_h = self.image.shape[0]
+        view_w = 0
+        view_h = 0
+        if img_w > img_h:  # 图片长
+            # 图片长，那么，长度为其限制
+            view_w = w
+            view_h = int(img_h * view_w / img_w)
+            if view_h > h:  # 图片过高
+                view_h = h
+                view_w = int(img_w * view_h / img_h)
+        else:  # 图片高
+            # 图片高，那么，高度为其限制
+            view_h = h
+            view_w = int(img_w * view_h / img_h)
+            if view_w > w:  # 图片过长
+                view_w = w
+                view_h = int(img_h * view_w / img_w)
+        size = (view_w, view_h)
+        return size

@@ -147,7 +147,9 @@ class ImageProcess:
         :param image: 图像
         :return: 光照补偿后的图像
         """
-        (b, g, r) = cv2.split(image)  # 分离三通道
+        img00 = cv2.cvtColor(image, cv2.COLOR_BGR2YCR_CB)
+        img = cv2.cvtColor(img00, cv2.COLOR_YCR_CB2BGR)
+        (b, g, r) = cv2.split(img)  # 分离三通道
         (x, y) = b.shape
         gray_list = []  # 灰度值列表
         for i in range(0, x):
@@ -162,7 +164,7 @@ class ImageProcess:
             total += gray_list[i]
         average = total / num  # 灰度平均值
         coe = 255 / average  # 光照补偿系数coe
-        (b, g, r) = cv2.split(image)
+        (b, g, r) = cv2.split(img)
         for i in range(0, x):
             for j in range(0, y):
                 b[i][j] = int(b[i][j] * coe)
