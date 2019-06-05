@@ -8,6 +8,7 @@ import threading
 import numpy as np
 import webbrowser   # 默认浏览器打开网页
 import pyperclip    # 剪切板模块
+from detection_of_skin_area import image
 
 
 class ImageView(wx.Panel):
@@ -911,3 +912,532 @@ class ShowImage(wx.Frame):
         else:               # 下载到本地
             # 使用浏览器下载源码
             webbrowser.open("https://github.com/SFCMN/DetectionOfSkinAreas/archive/master.zip")
+
+
+class MultiSchemeFrame(wx.Frame):
+
+    def __init__(self, image, parent=None, title="Unnamed", size=(350, 300)):
+        self.image = image
+        self.title = title
+
+        # 初始化窗口并将其位置居中
+        wx.Frame.__init__(self, None, wx.ID_ANY, title=self.title, size=size,
+                          style=wx.CAPTION | wx.CLOSE_BOX | wx.MINIMIZE_BOX)
+        self.__set_icon("../images/compare02.ico")
+        self.Center()
+        self.panel = wx.Panel(self, pos=(0, 0), size=(self.GetSize()[0], self.GetSize()[1]), name="主面板")
+        self.panel.SetBackgroundColour('white')
+        self.btn1 = buttons.GenButton(self.panel, label='不同色彩空间', pos=(18, 20), size=(300, 40),
+                                      style=wx.BORDER_SIMPLE)
+        self.btn2 = buttons.GenButton(self.panel, label='不同预处理算法', pos=(18, 80), size=(300, 40),
+                                      style=wx.BORDER_SIMPLE)
+        self.btn3 = buttons.GenButton(self.panel, label='不同检测方法(YCbCr空间)', pos=(18, 140), size=(300, 40),
+                                      style=wx.BORDER_SIMPLE)
+        self.btn4 = buttons.GenButton(self.panel, label='不同Cb、Cr值范围', pos=(18, 200), size=(300, 40),
+                                      style=wx.BORDER_SIMPLE)
+
+        self.background_panel = wx.Panel(self.panel, pos=(340, 20), size=(330, 220), name="背景面板")
+        self.background_panel.SetBackgroundColour('#ADD8E6')
+        self.background_panel.Hide()
+
+        self.__set_button_properties(self.btn1)
+        self.__set_button_properties(self.btn2)
+        self.__set_button_properties(self.btn3)
+        self.__set_button_properties(self.btn4)
+
+        self.Bind(wx.EVT_BUTTON, self.OnClick1, self.btn1)
+        self.Bind(wx.EVT_BUTTON, self.OnClick2, self.btn2)
+        self.Bind(wx.EVT_BUTTON, self.OnClick3, self.btn3)
+        self.Bind(wx.EVT_BUTTON, self.OnClick4, self.btn4)
+
+    def __set_icon(self, icon_path):
+        """
+        设置窗口的图标
+        :param icon_path:
+        :return:
+        """
+        icon = wx.Icon()
+        icon.LoadFile(icon_path, wx.BITMAP_TYPE_ICO)
+        self.SetIcon(icon)
+
+    def __set_button_properties(self, btn):
+        """
+        设置给定按钮的属性
+        :param btn: 给定的按钮
+        :return: None
+        """
+        btn.SetBackgroundColour('white')
+        btn.SetTransparent(200)
+        btn.SetBezelWidth(0)
+        btn.SetUseFocusIndicator(False)
+        font = wx.Font(16, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
+        btn.SetFont(font)
+
+    def __set_button_properties2(self, btn):
+        """
+        设置给定按钮的属性
+        :param btn: 给定的按钮
+        :return: None
+        """
+        self.__set_button_properties(btn)
+        btn.SetBackgroundColour('#D5F0EF')
+
+    def __set_button_properties3(self, btn):
+        """
+        设置给定按钮的属性
+        :param btn: 给定的按钮
+        :return: None
+        """
+        self.__set_button_properties2(btn)
+        font = wx.Font(14, wx.DECORATIVE, wx.NORMAL, wx.NORMAL)
+        btn.SetFont(font)
+
+    def __set_button_properties4(self, btn, bool):
+        """
+        设置给定按钮的属性
+        :param btn: 给定的按钮
+        :return: None
+        """
+        self.__set_button_properties(btn)
+        if bool:
+            btn.SetBackgroundColour('#F0E68C')
+            btn.SetForegroundColour('red')
+        else:
+            btn.SetBackgroundColour('#D5F0EF')
+            btn.SetForegroundColour('black')
+
+    def __set_background(self, btn):
+        self.background_panel.DestroyChildren()
+        self.btn1.SetBackgroundColour('white')
+        self.btn2.SetBackgroundColour('white')
+        self.btn3.SetBackgroundColour('white')
+        self.btn4.SetBackgroundColour('white')
+        btn.SetBackgroundColour('#D5F0EF')
+        self.update()
+
+    def update(self):
+        self.panel.Hide()
+        self.panel.Show()
+
+    def __reset_size(self):
+        """
+        重新设置窗口大小及位置
+        :return: None
+        """
+        self.SetSize(700, 300)
+        self.background_panel.Show()
+        self.Center()
+
+    def OnClick1(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        self.__set_background(self.btn1)
+        self.__reset_size()
+        btn1 = buttons.GenButton(self.background_panel, id=101, label='RGB色彩空间', pos=(15, 30), size=(300, 40),
+                                      style=wx.BORDER_SIMPLE)
+        btn2 = buttons.GenButton(self.background_panel, id=102, label='HSV色彩空间', pos=(15, 90), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn3 = buttons.GenButton(self.background_panel, id=103, label='YCbCr色彩空间', pos=(15, 150), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        self.__set_button_properties2(btn1)
+        self.__set_button_properties2(btn2)
+        self.__set_button_properties2(btn3)
+
+        self.Bind(wx.EVT_BUTTON, self.OnClick11, btn1)
+        self.Bind(wx.EVT_BUTTON, self.OnClick11, btn2)
+        self.Bind(wx.EVT_BUTTON, self.OnClick11, btn3)
+
+    def OnClick2(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        self.__set_background(self.btn2)
+        self.__reset_size()
+        btn_light = buttons.GenButton(self.background_panel, id=2001, label='光照补偿', pos=(15, 10), size=(135, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn_denoise = buttons.GenButton(self.background_panel, id=2002, label='去噪', pos=(180, 10), size=(135, 40),
+                                 style=wx.BORDER_SIMPLE)
+
+        btn1 = buttons.GenButton(self.background_panel, id=201, label='不进行光照补偿', pos=(15, 70), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn2 = buttons.GenButton(self.background_panel, id=202, label='GrayWorld色彩均衡算法', pos=(15, 120), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn3 = buttons.GenButton(self.background_panel, id=203, label='基于参考白的算法', pos=(15, 170), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn4 = buttons.GenButton(self.background_panel, id=204, label='中值滤波', pos=(15, 90), size=(135, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn5 = buttons.GenButton(self.background_panel, id=205, label='均值滤波', pos=(180, 90), size=(135, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn6 = buttons.GenButton(self.background_panel, id=206, label='高斯滤波', pos=(15, 150), size=(135, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn7 = buttons.GenButton(self.background_panel, id=207, label='双边滤波', pos=(180, 150), size=(135, 40),
+                                 style=wx.BORDER_SIMPLE)
+
+        # 按钮样式设置
+        self.__set_button_properties2(btn_light)
+        self.__set_button_properties2(btn_denoise)
+        self.__set_button_properties2(btn1)
+        self.__set_button_properties2(btn2)
+        self.__set_button_properties2(btn3)
+        self.__set_button_properties2(btn4)
+        self.__set_button_properties2(btn5)
+        self.__set_button_properties2(btn6)
+        self.__set_button_properties2(btn7)
+
+        # 按钮事件绑定
+        self.Bind(wx.EVT_BUTTON, self.OnClick201, btn_light)
+        self.Bind(wx.EVT_BUTTON, self.OnClick201, btn_denoise)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn1)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn2)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn3)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn4)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn5)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn6)
+        self.Bind(wx.EVT_BUTTON, self.OnClick21, btn7)
+
+        # 后4个按钮隐藏
+        btn4.Hide()
+        btn5.Hide()
+        btn6.Hide()
+        btn7.Hide()
+
+        # 光照补偿按钮点亮
+        self.__set_button_properties4(btn_light, True)
+
+    def OnClick3(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        self.__set_background(self.btn3)
+        self.__reset_size()
+        btn1 = buttons.GenButton(self.background_panel, id=301, label='Cb、Cr值范围筛选法', pos=(15, 30), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn2 = buttons.GenButton(self.background_panel, id=302, label='椭圆肤色模型检测法', pos=(15, 90), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn3 = buttons.GenButton(self.background_panel, id=303, label='Cr分量+Otsu阈值分割法', pos=(15, 150), size=(300, 40),
+                                 style=wx.BORDER_SIMPLE)
+        self.__set_button_properties2(btn1)
+        self.__set_button_properties2(btn2)
+        self.__set_button_properties2(btn3)
+
+        self.Bind(wx.EVT_BUTTON, self.OnClick31, btn1)
+        self.Bind(wx.EVT_BUTTON, self.OnClick31, btn2)
+        self.Bind(wx.EVT_BUTTON, self.OnClick31, btn3)
+
+    def OnClick4(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        self.__set_background(self.btn4)
+        self.__reset_size()
+        btn1 = buttons.GenButton(self.background_panel, id=401, label='公认:Cb∈[77,127],Cr∈[133，173]', pos=(5, 30), size=(320, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn2 = buttons.GenButton(self.background_panel, id=402, label='学者:Cb∈[90，135],Cr∈[137,167]', pos=(5, 90), size=(320, 40),
+                                 style=wx.BORDER_SIMPLE)
+        btn3 = buttons.GenButton(self.background_panel, id=403, label='作者:Cb∈[94,126],Cr∈[133，164]', pos=(5, 150), size=(320, 40),
+                                 style=wx.BORDER_SIMPLE)
+        self.__set_button_properties3(btn1)
+        self.__set_button_properties3(btn2)
+        self.__set_button_properties3(btn3)
+
+        self.Bind(wx.EVT_BUTTON, self.OnClick41, btn1)
+        self.Bind(wx.EVT_BUTTON, self.OnClick41, btn2)
+        self.Bind(wx.EVT_BUTTON, self.OnClick41, btn3)
+
+    def OnClick11(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        id = event.GetId()
+        if id == 101:
+            compare = image.ImageCompare()
+            compare.rgb(self.image)
+            frame = ShowImage2(num=3, title="RGB色彩空间肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/rgb_compare_1.jpg", "../TempInfo/rgb_compare_2.jpg",
+                                                "../TempInfo/rgb_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 102:
+            compare = image.ImageCompare()
+            compare.hsv(self.image)
+            frame = ShowImage2(num=3, title="HSV色彩空间肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/hsv_compare_1.jpg", "../TempInfo/hsv_compare_2.jpg",
+                                                "../TempInfo/hsv_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        else:
+            compare = image.ImageCompare()
+            compare.ycbcr(self.image)
+            frame = ShowImage2(num=3, title="YCbCr色彩空间肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/ycbcr_compare_1.jpg", "../TempInfo/ycbcr_compare_2.jpg",
+                                                "../TempInfo/ycbcr_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+
+    def OnClick201(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        id = event.GetId()
+        btn_list = self.background_panel.GetChildren()
+        if id == 2001:
+            self.__set_button_properties4(btn_list[0], True)
+            self.__set_button_properties4(btn_list[1], False)
+            for i in range(2, 9):
+                if i < 5:
+                    btn_list[i].Show()
+                else:
+                    btn_list[i].Hide()
+        elif id == 2002:
+            self.__set_button_properties4(btn_list[0], False)
+            self.__set_button_properties4(btn_list[1], True)
+            for i in range(2, 9):
+                if i < 5:
+                    btn_list[i].Hide()
+                else:
+                    btn_list[i].Show()
+        self.update()
+
+    def OnClick21(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        id = event.GetId()
+        if id == 201:
+            compare = image.ImageCompare()
+            compare.nonelight(self.image)
+            frame = ShowImage2(num=4, title="不进行光照补偿肤色检测",
+                               title_list=["原图像", "未进行光照补偿的图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/nonelight_compare_1.jpg", "../TempInfo/nonelight_compare_2.jpg",
+                                                "../TempInfo/nonelight_compare_3.jpg", "../TempInfo/nonelight_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 202:
+            compare = image.ImageCompare()
+            compare.grayworld(self.image)
+            frame = ShowImage2(num=4, title="GrayWorld色彩均衡算法肤色检测",
+                               title_list=["原图像", "GrayWorld光照补偿图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/grayworld_compare_1.jpg", "../TempInfo/grayworld_compare_2.jpg",
+                                                "../TempInfo/grayworld_compare_3.jpg", "../TempInfo/grayworld_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 203:
+            compare = image.ImageCompare()
+            compare.referencewhite(self.image)
+            frame = ShowImage2(num=4, title="基于参考白的算法肤色检测",
+                               title_list=["原图像", "基于参考白光照补偿图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/referencewhite_compare_1.jpg",
+                                                "../TempInfo/referencewhite_compare_2.jpg",
+                                                "../TempInfo/referencewhite_compare_3.jpg",
+                                                "../TempInfo/referencewhite_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 204:
+            compare = image.ImageCompare()
+            compare.medianblur(self.image)
+            frame = ShowImage2(num=4, title="中值滤波肤色检测",
+                               title_list=["原图像", "中值滤波图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/medianblur_compare_1.jpg",
+                                                "../TempInfo/medianblur_compare_2.jpg",
+                                                "../TempInfo/medianblur_compare_3.jpg",
+                                                "../TempInfo/medianblur_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 205:
+            compare = image.ImageCompare()
+            compare.blur(self.image)
+            frame = ShowImage2(num=4, title="均值滤波肤色检测",
+                               title_list=["原图像", "均值滤波图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/blur_compare_1.jpg",
+                                                "../TempInfo/blur_compare_2.jpg",
+                                                "../TempInfo/blur_compare_3.jpg",
+                                                "../TempInfo/blur_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 206:
+            compare = image.ImageCompare()
+            compare.gaussianblur(self.image)
+            frame = ShowImage2(num=4, title="高斯滤波肤色检测",
+                               title_list=["原图像", "高斯滤波图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/gaussianblur_compare_1.jpg",
+                                                "../TempInfo/gaussianblur_compare_2.jpg",
+                                                "../TempInfo/gaussianblur_compare_3.jpg",
+                                                "../TempInfo/gaussianblur_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        else:
+            compare = image.ImageCompare()
+            compare.bilateralfilter(self.image)
+            frame = ShowImage2(num=4, title="双边滤波肤色检测",
+                               title_list=["原图像", "双边滤波图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/bilateralfilter_compare_1.jpg",
+                                                "../TempInfo/bilateralfilter_compare_2.jpg",
+                                                "../TempInfo/bilateralfilter_compare_3.jpg",
+                                                "../TempInfo/bilateralfilter_compare_4.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+
+    def OnClick31(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        id = event.GetId()
+        if id == 301:
+            compare = image.ImageCompare()
+            compare.cbcrrange(self.image)
+            frame = ShowImage2(num=3, title="Cb、Cr值范围筛选法肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/cbcrrange_compare_1.jpg",
+                                                "../TempInfo/cbcrrange_compare_2.jpg",
+                                                "../TempInfo/cbcrrange_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 302:
+            compare = image.ImageCompare()
+            compare.ellipse(self.image)
+            frame = ShowImage2(num=3, title="椭圆模型检测法肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/ellipse_compare_1.jpg",
+                                                "../TempInfo/ellipse_compare_2.jpg",
+                                                "../TempInfo/ellipse_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        else:
+            compare = image.ImageCompare()
+            compare.crotsu(self.image)
+            frame = ShowImage2(num=3, title="Cr分量+Otsu阈值分割法肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/crotsu_compare_1.jpg",
+                                                "../TempInfo/crotsu_compare_2.jpg",
+                                                "../TempInfo/crotsu_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+
+    def OnClick41(self, event):
+        """
+        按钮点击事件
+        :param event: 事件源
+        :return: None
+        """
+        id = event.GetId()
+        if id == 401:
+            compare = image.ImageCompare()
+            compare.gongren(self.image)
+            frame = ShowImage2(num=3, title="公认:Cb∈[77,127],Cr∈[133，173]肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/gongren_compare_1.jpg",
+                                                "../TempInfo/gongren_compare_2.jpg",
+                                                "../TempInfo/gongren_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        elif id == 402:
+            compare = image.ImageCompare()
+            compare.xuezhe(self.image)
+            frame = ShowImage2(num=3, title="学者:Cb∈[90，135],Cr∈[137,167]肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/xuezhe_compare_1.jpg",
+                                                "../TempInfo/xuezhe_compare_2.jpg",
+                                                "../TempInfo/xuezhe_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+        else:
+            compare = image.ImageCompare()
+            compare.zuozhe(self.image)
+            frame = ShowImage2(num=3, title="作者:Cb∈[94,126],Cr∈[133，164]肤色检测",
+                               title_list=["原图像", "肤色检测结果图像", "二值化图像"],
+                               image_path_list=["../TempInfo/zuozhe_compare_1.jpg",
+                                                "../TempInfo/zuozhe_compare_2.jpg",
+                                                "../TempInfo/zuozhe_compare_3.jpg"])
+            frame.set_icon("../images/likelihoodimage01.ico")
+
+
+class ShowImage2(wx.Frame):
+    def __init__(self, image_path_list, title_list, parent=None, num=1, title="未加载", size=wx.DefaultSize):
+        """
+        初始化对话框
+        :param parent: 父控件
+        :param size: 大小
+        """
+        self.title = title
+
+        # 初始化窗口并将其位置居中
+        wx.Frame.__init__(self, None, wx.ID_ANY, title=self.title, size=(318, 467),
+                          style=wx.CAPTION | wx.CLOSE_BOX | wx.MINIMIZE_BOX)
+        # 主面板
+        self.panel = wx.Panel(self)
+        self.panel.SetBackgroundColour('white')
+
+        # 图像标题
+        self.text1 = wx.StaticText(self.panel, label='未加载', pos=(11, 0), size=(280, 25), name="加载文本",
+                                   style=wx.ALIGN_CENTER)
+        self.text2 = wx.StaticText(self.panel, label='未加载', pos=(305, 0), size=(280, 25), name="加载文本",
+                                   style=wx.ALIGN_CENTER)
+        self.text3 = wx.StaticText(self.panel, label='未加载', pos=(599, 0), size=(280, 25), name="加载文本",
+                                   style=wx.ALIGN_CENTER)
+        self.text4 = wx.StaticText(self.panel, label='未加载', pos=(893, 0), size=(280, 25), name="加载文本",
+                                   style=wx.ALIGN_CENTER)
+        self.text2.Hide()
+        self.text3.Hide()
+        self.text4.Hide()
+
+        # 图片
+        self.image1 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap("../images/loading02.png"),
+                                      pos=(11, 31), size=(280, 391), style=0, name="图片1")
+        self.image2 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap("../images/loading02.png"),
+                                      pos=(305, 31), size=(280, 391), style=0, name="图片2")
+        self.image3 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap("../images/loading02.png"),
+                                      pos=(599, 31), size=(280, 391), style=0, name="图片3")
+        self.image4 = wx.StaticBitmap(self.panel, wx.ID_ANY, bitmap=wx.Bitmap("../images/loading02.png"),
+                                      pos=(893, 31), size=(280, 391), style=0, name="图片4")
+        self.image2.Hide()
+        self.image3.Hide()
+        self.image4.Hide()
+
+        self.Center()
+        self.Show()
+        self.__set_image(num, image_path_list, title_list)
+
+    def __set_image(self, num, image_path_list, title_list):
+        """
+        设置图像标题
+        :param title_list:
+        :return:
+        """
+        image_size = self.__get_image_size(image_path_list[0])
+        frame_size = (38 + image_size[0] * num + 14 * (num - 1), 76 + image_size[1])
+        self.SetSize(frame_size)
+        self.Center()
+        controls_list = self.panel.GetChildren()
+        len_title = len(image_path_list)
+        # print(image_path_list)
+        # print(title_list)
+        for i in range(0, len_title):
+            controls_list[i].Show()
+            controls_list[i].SetLabelText(title_list[i])
+        for i in range(4, 4 + len_title):
+            controls_list[i].Show()
+            controls_list[i].SetBitmap(wx.Bitmap(image_path_list[i - 4]))
+
+    def set_icon(self, icon_path):
+        """
+        设置窗口的图标
+        :param icon_path:
+        :return:
+        """
+        icon = wx.Icon()
+        icon.LoadFile(icon_path, wx.BITMAP_TYPE_ICO)
+        self.SetIcon(icon)
+
+    def __get_image_size(self, image_path):
+        """
+        根据图像得到图像大小
+        :param image_path: 图像尺寸
+        :return: 图像尺寸
+        """
+        image = cv2.imdecode(np.fromfile(image_path, dtype=np.uint8), cv2.IMREAD_UNCHANGED)
+        return (image.shape[1], image.shape[0])

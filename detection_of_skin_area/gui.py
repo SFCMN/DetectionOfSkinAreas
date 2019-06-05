@@ -56,7 +56,7 @@ class MainFrame(wx.Frame):
         self.btn5 = buttons.GenButton(self.fun_panel, label=self.label_dict['Skin Detection Btn'], pos=(5, 275), size=(251, 40))
         self.step_detection_text = wx.StaticText(self.fun_panel, label=self.label_dict['Step Detection Text'], pos=(5, 320), size=(251, 30),
                                                  name="单步检测文本", style=wx.ALIGN_LEFT)
-        self.btn6 = buttons.GenButton(self.fun_panel, label=self.label_dict['Preprocess Btn'], pos=(5, 350), size=(251, 40))
+        self.btn6 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Illumination Compensation Btn'], pos=(5, 350), size=(251, 40))
         # 下拉列表选项列表
         self.ic_text = wx.StaticText(self.fun_panel, -1, label=self.label_dict['IC Text'], pos=(5, 396), size=(60, 18), style=wx.ALIGN_LEFT)
         self.choice1 = wx.Choice(self.fun_panel, -1, pos=(70, 393), size=(186, 26), choices=eval(self.label_dict['IC Method']))
@@ -65,16 +65,16 @@ class MainFrame(wx.Frame):
         self.dn_text = wx.StaticText(self.fun_panel, -1, label=self.label_dict['DN Text'], pos=(5, 425), size=(60, 18), style=wx.ALIGN_LEFT)
         self.choice2 = wx.Choice(self.fun_panel, -1, pos=(70, 422), size=(186, 26), choices=eval(self.label_dict['DN Method']))
         self.choice2.SetSelection(0)
-        self.btn7 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Detection Btn'], pos=(5, 451), size=(251, 40))
-        self.btn8 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Binarization Btn'], pos=(5, 496), size=(251, 40))
-        self.btn9 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Segmentation Btn'], pos=(5, 541), size=(251, 40))
+        self.btn7 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Denoise Btn'], pos=(5, 451), size=(251, 40))
+        self.btn8 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Detection Btn'], pos=(5, 496), size=(251, 40))
+        self.btn9 = buttons.GenButton(self.fun_panel, label=self.label_dict['Step Binarization Btn'], pos=(5, 541), size=(251, 40))
         self.title_panel = wx.Panel(self.show_panel, pos=(5, 5), size=(708, 30), name="标题面板")
         self.window_panel = wx.Panel(self.show_panel, pos=(5, 40), size=(708, 543), name="窗口面板")
         self.title_welcome = wx.StaticText(self.title_panel, -1, label=self.label_dict['Welcome Title'], pos=(0, 0), style=wx.ALIGN_LEFT)  # ▷Welcome
         self.title_original_image = buttons.GenButton(self.title_panel, label=self.label_dict['Original Title'], pos=(0, 0))  # ▷Original
         self.title_preprocess_image = buttons.GenButton(self.title_panel, label=self.label_dict['Preprocess Title'], pos=(65, 0))  # ▷Preprocess
-        self.title_binarization_image = buttons.GenButton(self.title_panel, label=self.label_dict['Binarization Title'], pos=(150, 0))  # ▷Binarization
-        self.title_segmentation_image = buttons.GenButton(self.title_panel, label=self.label_dict['Segmentation Title'], pos=(235, 0))  # ▷Segmentation
+        self.title_binarization_image = buttons.GenButton(self.title_panel, label=self.label_dict['Segmentation Title'], pos=(150, 0))  # ▷Binarization
+        self.title_segmentation_image = buttons.GenButton(self.title_panel, label=self.label_dict['Binarization Title'], pos=(235, 0))  # ▷Segmentation
         self.title_window_2_list = buttons.GenBitmapButton(self.title_panel, bitmap=wx.Bitmap("../images/list01.png"),
                                            size=(30, 30), name="PatternConver1")
         self.title_list_2_window = buttons.GenBitmapButton(self.title_panel, bitmap=wx.Bitmap("../images/full01.png"),
@@ -304,6 +304,7 @@ class MainFrame(wx.Frame):
         self.tool13 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/clear01.png'), self.label_dict['Clear Tool'])
         self.tool14 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/detection02.png'), self.label_dict['Skin Detection Tool'])
         self.tool15 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/next01.png'), self.label_dict['Step Tool'])
+        self.tool22 = self.tool_bar.AddTool(wx.ID_ANY, "", wx.Bitmap('../images/compare01.png'), self.label_dict['Multi-scheme Comparison Tool'])
 
         # 显现工具栏
         self.tool_bar.Realize()
@@ -326,6 +327,7 @@ class MainFrame(wx.Frame):
         self.Bind(wx.EVT_TOOL, self.OnRGB, self.tool19)
         self.Bind(wx.EVT_TOOL, self.OnCompare, self.tool20)
         self.Bind(wx.EVT_TOOL, self.OnEllipseModel, self.tool21)
+        self.Bind(wx.EVT_TOOL, self.OnMultiScheme, self.tool22)
 
     def __set_status_bar(self):
         """
@@ -377,12 +379,12 @@ class MainFrame(wx.Frame):
             self.title_original_image.SetPosition(wx.Point(0, 0))
             self.title_preprocess_image.SetPosition(wx.Point(65, 0))
             self.title_binarization_image.SetPosition(wx.Point(150, 0))
-            self.title_segmentation_image.SetPosition(wx.Point(235, 0))
+            self.title_segmentation_image.SetPosition(wx.Point(295, 0))
             self.title_welcome.SetSize(60, 20)
             self.title_original_image.SetSize(60, 30)
             self.title_preprocess_image.SetSize(80, 30)
-            self.title_binarization_image.SetSize(80, 30)
-            self.title_segmentation_image.SetSize(140, 30)
+            self.title_binarization_image.SetSize(140, 30)
+            self.title_segmentation_image.SetSize(80, 30)
         else:
             self.title_welcome.SetPosition(wx.Point(0, 5))
             self.title_original_image.SetPosition(wx.Point(0, 0))
@@ -515,7 +517,7 @@ class MainFrame(wx.Frame):
         """
         # wx.FileDialog语法：(self, parent, message, defaultDir, defaultFile,wildcard, style, pos)
         # .ai .webp 格式图像暂不支持
-        wildcard = "JPG files (*.jpg)|*.jpg|" "JPEG files (*.jpeg)|*.jpeg|" "PNG files (*.png)|*.png|" \
+        wildcard = "PNG files (*.png)|*.png|" "JPG files (*.jpg)|*.jpg|" "JPEG files (*.jpeg)|*.jpeg|" \
                    "BMP files (*.bmp)|*.bmp|" "PPM files (*.ppm)|*.ppm|" "PNM files (*.pnm)|*.pnm|" \
                    "PBM files (*.pbm)|*.pbm|" "TIF files (*.tiff)|*.tiff|" "CDR files (*.cdr)|*.cdr|" \
                    "ODD files (*.odd)|*.odd|" "FPX files (*.fpx)|*.fpx|" "PBM files (*.pbm)|*.pbm|" \
@@ -1245,6 +1247,15 @@ class MainFrame(wx.Frame):
         :return: None
         """
         self.Destroy()
+
+    def OnMultiScheme(self, event):
+        """
+        多方案比较窗口打开
+        :param event: 事件源
+        :return: None
+        """
+        multi_frame = controls.MultiSchemeFrame(image=self.image, title='多方案比较')
+        multi_frame.Show()
 
     # def OnStep(self, event):
     #     """

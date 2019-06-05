@@ -15,7 +15,7 @@ class StatisticsData:
         :return: cb_list、cr_list
         """
         # 首先获取到所有样本的绝对路径
-        sample_path_list = self.__get_files_name("../SkinSample/")
+        sample_path_list = self.__get_files_name("../SkinSample/黄种人/")
         # 挨个路径读取样本，将其Cb、Cr值记录到列表中
         cb_list = []
         cr_list = []
