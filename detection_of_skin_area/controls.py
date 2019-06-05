@@ -782,12 +782,26 @@ class ShowImage(wx.Frame):
         m = m.replace("[", "").replace("]", "")
         list_C = C.split(" ")
         list_m = m.split(" ")
-        # print(list_C)
-        # print(list_m)
-        del list_C[4]
+        # 直接删除
+        del list_C[5]
+        del list_C[2]
         del list_C[0]
-        # del list_m[2]
-        # del list_m[1]
+        # print(list_C)
+        # 一劳永逸
+        # dict_C = {}
+        # for i in range(0, len(list_C)):
+        #     dict_C[i] = list_C[i]
+        # list_num = []
+        # for (key, value) in dict_C.items():
+        #     if value == '':
+        #         list_num += [key]
+        # for i in list_num:
+        #     del dict_C[i]
+        # # print(dict_C)
+        # list_C.clear()
+        # for (key, value) in dict_C.items():
+        #     list_C += [value]
+        # print(list_C)
         self.text.SetLabelText("\n均值(Cb):\t" + str(round(value['Average_X'], 1)) + "\t    均值(Cr):\t" +
                                str(round(value['Average_Y'], 1)) + "\n\n方差(Cb):\t" + str(round(value['Variance_X'], 1))
                                + "\t    方差(Cr):\t" + str(round(value['Variance_Y'], 1)) +
