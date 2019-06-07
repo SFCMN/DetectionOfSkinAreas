@@ -720,7 +720,7 @@ class MainFrame(wx.Frame):
         self.image = None
         self.image_list.clear()
         # 将一些控件封禁
-        for i in [1, 2, 3, 4, 6, 9, 10, 16, 17, 18, 26, 27, 33, 34, 35, 37, 38, 39, 42, 43, 44, 45, 46, 47]:
+        for i in [1, 2, 3, 4, 6, 9, 10, 16, 17, 18, 26, 27, 33, 34, 35, 37, 38, 39, 42, 43, 44, 45, 46, 47, 48, 49, 50]:
             self.controls_list[i].Enable(False)
         # 将导入图像按钮解禁
         for i in [0, 25, 41]:
