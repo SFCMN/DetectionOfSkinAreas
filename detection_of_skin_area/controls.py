@@ -1157,7 +1157,7 @@ class MultiSchemeFrame(wx.Frame):
                                  style=wx.BORDER_SIMPLE)
         btn2 = buttons.GenButton(self.background_panel, id=402, label='学者:Cb∈[90，135],Cr∈[137,167]', pos=(5, 90), size=(320, 40),
                                  style=wx.BORDER_SIMPLE)
-        btn3 = buttons.GenButton(self.background_panel, id=403, label='作者:Cb∈[94,126],Cr∈[133，164]', pos=(5, 150), size=(320, 40),
+        btn3 = buttons.GenButton(self.background_panel, id=403, label='作者:Cb∈[94,126],Cr∈[133，165]', pos=(5, 150), size=(320, 40),
                                  style=wx.BORDER_SIMPLE)
         self.__set_button_properties3(btn1)
         self.__set_button_properties3(btn2)
@@ -1362,7 +1362,7 @@ class MultiSchemeFrame(wx.Frame):
         else:
             compare = image.ImageCompare()
             compare.zuozhe(self.image)
-            frame = ShowImage2(num=3, title="作者:Cb∈[94,126],Cr∈[133，164]肤色检测",
+            frame = ShowImage2(num=3, title="作者:Cb∈[94,126],Cr∈[133，165]肤色检测",
                                title_list=["原图像", "肤色检测结果图像", "二值化图像"],
                                image_path_list=["../TempInfo/zuozhe_compare_1.jpg",
                                                 "../TempInfo/zuozhe_compare_2.jpg",
